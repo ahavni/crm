@@ -3,16 +3,17 @@ package web.ani.beans;
 /**
  * Created by Anichka on 9.5.2015 г..
  */
-public abstract class User implements IUser{
+public class User {
     // User attributes
     protected String fistName;
     protected String lastName;
     protected int age;
     protected String address;
+    protected String email;
     private String sex;
 
     // constructor
-    User(){
+    public User(){
         this.fistName = "";
         this.lastName = "";
         this.age = 0;
@@ -20,11 +21,12 @@ public abstract class User implements IUser{
         this.sex = "";
     }
 
-    User(String fistNameP, String lastNameP, int ageP, String addressP, String sexP){
+    public User(String fistNameP, String lastNameP, int ageP, String addressP, String emailP, String sexP){
         this.fistName = fistNameP;
         this.lastName = lastNameP;
         this.age = ageP;
         this.address = addressP;
+        this.email = emailP;
         this.sex = sexP;
     }
 
@@ -69,6 +71,15 @@ public abstract class User implements IUser{
         this.sex = sex;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    // ??
     public boolean equals(User userP) {
         boolean fistNameEqual = this.fistName.equals(userP.fistName);
         boolean lastNameEqual = this.lastName.equals(userP.lastName);
