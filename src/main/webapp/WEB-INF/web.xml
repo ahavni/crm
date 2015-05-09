@@ -7,7 +7,7 @@
 
     <servlet>
         <servlet-name>RegistrationServlet</servlet-name>
-        <servlet-class>web.ani.servlets.Register</servlet-class>
+        <servlet-class>web.ani.servlets.RegistrationServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>

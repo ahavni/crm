@@ -1,6 +1,8 @@
 package web.ani.servlets;
 
 import web.ani.beans.User;
+import web.ani.utils.DBUtils;
+
 import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -23,14 +25,16 @@ public class RegistrationServlet extends HttpServlet {
                                 req.getParameter("email"),
                                 req.getParameter("sex")
                                 );
+
+
         Connection conn = null;
 
         try {
-            conn = DBUtill.createDatabaseConnection();
-            DBUtill.addUser(conn, newUser);
+            conn = DBUtils.createDatabaseConnection();
+            DBUtils.addUser(conn, newUser);
             PrintWriter printWriter = resp.getWriter();
             printWriter.println("Congrate you have created a User " +
-                    newUser.getFirstName() + ", lastname: "
+                    newUser.getFistName() + ", lastname: "
                     + newUser.getLastName() + ", age: " +
                     newUser.getAge());
         } catch (SQLException e) {
@@ -39,9 +43,11 @@ public class RegistrationServlet extends HttpServlet {
             e.printStackTrace();
         } finally {
             if (conn != null) {
-                DBUtill.closeConnection(conn);
+                DBUtils.closeConnection(conn);
             }
         }
+
     }
+
 }
 
