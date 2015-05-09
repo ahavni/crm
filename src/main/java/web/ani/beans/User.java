@@ -9,6 +9,7 @@ public abstract class User implements IUser{
     protected String lastName;
     protected int age;
     protected String address;
+    private String sex;
 
     // constructor
     User(){
@@ -16,13 +17,15 @@ public abstract class User implements IUser{
         this.lastName = "";
         this.age = 0;
         this.address = "";
+        this.sex = "";
     }
 
-    User(String fistNameP, String lastNameP, int ageP, String addressP){
+    User(String fistNameP, String lastNameP, int ageP, String addressP, String sexP){
         this.fistName = fistNameP;
         this.lastName = lastNameP;
         this.age = ageP;
         this.address = addressP;
+        this.sex = sexP;
     }
 
     // getters and setter
@@ -58,6 +61,13 @@ public abstract class User implements IUser{
         this.address = address;
     }
 
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
 
     public boolean equals(User userP) {
         boolean fistNameEqual = this.fistName.equals(userP.fistName);
