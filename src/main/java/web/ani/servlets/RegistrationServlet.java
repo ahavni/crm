@@ -30,20 +30,21 @@ public class RegistrationServlet extends HttpServlet {
         Connection conn = null;
 
         try {
-            conn = DBUtils.createDatabaseConnection();
+            conn = DBUtils.createDBConnection();
             DBUtils.addUser(conn, newUser);
+            /*
             PrintWriter printWriter = resp.getWriter();
             printWriter.println("Congrate you have created a User " +
                     newUser.getFistName() + ", lastname: "
                     + newUser.getLastName() + ", age: " +
-                    newUser.getAge());
+                    newUser.getAge()); */
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
-                DBUtils.closeConnection(conn);
+                DBUtils.closeDBConnection(conn);
             }
         }
 

@@ -9,11 +9,19 @@ import java.util.List;
 public class DBUtils {
 
 
-    public static Connection createDatabaseConnection() throws SQLException, ClassNotFoundException {
+    public static Connection createDBConnection() throws SQLException, ClassNotFoundException {
         String driver = "org.apache.derby.jdbc.EmbeddedDriver";
         Class.forName(driver);
-        String url = "jdbc:derby:sampleDB;create=true";
+        String url = "jdbc:derby:masterDB;create=true";
         return DriverManager.getConnection(url);
+    }
+
+    public static void closeDBConnection(Connection conn) {
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static void createUsersTable(Connection conn) throws SQLException {
@@ -92,11 +100,5 @@ public class DBUtils {
         }
 
      */
-    public static void closeConnection(Connection conn) {
-        try {
-            conn.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
 }
