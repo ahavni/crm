@@ -25,8 +25,6 @@ public class RegistrationServlet extends HttpServlet {
                                 req.getParameter("email"),
                                 req.getParameter("sex")
                                 );
-
-
         Connection conn = null;
 
         try {
@@ -37,7 +35,8 @@ public class RegistrationServlet extends HttpServlet {
             printWriter.println("Congrate you have created a User " +
                     newUser.getFistName() + ", lastname: "
                     + newUser.getLastName() + ", age: " +
-                    newUser.getAge()); */
+                    newUser.getAge());
+            */
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -47,8 +46,6 @@ public class RegistrationServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
         }
-
     }
-
 }
 

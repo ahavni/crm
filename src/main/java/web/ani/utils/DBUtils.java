@@ -24,9 +24,8 @@ public class DBUtils {
         }
     }
 
-    public static void createUsersTable(Connection conn) throws SQLException {
+    public static void createUSERStable(Connection conn) throws SQLException {
         Statement stmt = null;
-        //STEP 4: Execute a query
         System.out.println("Creating table in given database...");
         stmt = conn.createStatement();
         try {
@@ -34,7 +33,7 @@ public class DBUtils {
                     "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
                     " firstName VARCHAR(255), " +
                     " lastName VARCHAR(255), " +
-                    " age INTEGER," +
+                    " age INTEGER, " +
                     " address VARCHAR(255), " +
                     " email VARCHAR(255), " +
                     " sex VARCHAR(255), " +
@@ -51,7 +50,6 @@ public class DBUtils {
         }
     }
 
-
     public static void addUser(Connection conn, User user) {
         Statement stmt = null;
         String tableName = "USERS";
@@ -59,10 +57,10 @@ public class DBUtils {
             stmt = conn.createStatement();
             stmt.execute("insert into " + tableName + " (firstName, lastName, age, address, email, sex) values ('"
                     + user.getFistName() + "','"
-                    + user.getLastName() + "',"
-                    + user.getAge() + "',"
-                    + user.getAddress() + "',"
-                    + user.getEmail() + "',"
+                    + user.getLastName() + "','"
+                    + user.getAge() + "','"
+                    + user.getAddress() + "','"
+                    + user.getEmail() + "','"
                     + user.getSex() +
                     ")");
             stmt.close();
