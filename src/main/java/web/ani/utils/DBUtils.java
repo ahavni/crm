@@ -57,12 +57,11 @@ public class DBUtils {
             stmt = conn.createStatement();
             stmt.execute("insert into " + tableName + " (firstName, lastName, age, address, email, sex) values ('"
                     + user.getFistName() + "','"
-                    + user.getLastName() + "','"
-                    + user.getAge() + "','"
+                    + user.getLastName() + "',"
+                    + user.getAge() + ",'"
                     + user.getAddress() + "','"
                     + user.getEmail() + "','"
-                    + user.getSex() +
-                    ")");
+                    + user.getSex() + "')");
             stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();

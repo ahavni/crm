@@ -45,6 +45,9 @@ public class RegistrationServlet extends HttpServlet {
             if (conn != null) {
                 DBUtils.closeDBConnection(conn);
             }
+
+            req.setAttribute("created_user", newUser);
+            req.getRequestDispatcher("success.jsp").forward(req, resp);
         }
     }
 }
