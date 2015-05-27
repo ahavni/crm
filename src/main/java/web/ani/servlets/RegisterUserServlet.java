@@ -12,10 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 
-/**
- * Created by Anichka on 10.4.2015 г..
- */
-public class RegistrationServlet extends HttpServlet {
+public class RegisterUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User newUser = new User(req.getParameter("first_name"),

@@ -68,9 +68,8 @@ public class DBUtils {
         }
     }
 
-    /*
+
         public static List<User> getUsersFromDB(Connection conn) {
-            System.out.println("Enter getUsersFromDB");
             Statement stmt = null;
             ArrayList<User> usersList = new ArrayList<User>();
             User user;
@@ -79,15 +78,14 @@ public class DBUtils {
                 stmt = conn.createStatement();
                 String sql = "SELECT * FROM USERS";
                 ResultSet rs = stmt.executeQuery(sql);
-                System.out.println(rs.toString());
 
                 while (rs.next()) {
                     user = new User();
-                    user.setId(rs.getInt("id"));
-                    user.setFirstName(rs.getString("firstName"));
+//                    user.setId(rs.getInt("id"));
+                    user.setFistName(rs.getString("firstName"));
                     user.setLastName(rs.getString("lastName"));
                     user.setAge(rs.getInt("age"));
-                    System.out.println(user);
+//                    System.out.println(user);
                     usersList.add(user);
                 }
             } catch (SQLException e) {
@@ -96,6 +94,5 @@ public class DBUtils {
             return usersList;
         }
 
-     */
 
 }

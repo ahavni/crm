@@ -6,8 +6,8 @@
     <display-name>Archetype Created Web Application</display-name>
 
     <servlet>
-        <servlet-name>RegistrationServlet</servlet-name>
-        <servlet-class>web.ani.servlets.RegistrationServlet</servlet-class>
+        <servlet-name>RegisterUserServlet</servlet-name>
+        <servlet-class>web.ani.servlets.RegisterUserServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -15,15 +15,25 @@
         <servlet-class>web.ani.servlets.CreateDBServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>ListAllUserServlet</servlet-name>
+        <servlet-class>web.ani.servlets.ListAllUserServlet</servlet-class>
+    </servlet>
+
     <!-- mapping -->
     <servlet-mapping>
-        <servlet-name>RegistrationServlet</servlet-name>
+        <servlet-name>RegisterUserServlet</servlet-name>
         <url-pattern>/registration</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>
         <servlet-name>CreateDBServlet</servlet-name>
         <url-pattern>/createDB</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ListAllUserServlet</servlet-name>
+        <url-pattern>/listall</url-pattern>
     </servlet-mapping>
 
 </web-app>
