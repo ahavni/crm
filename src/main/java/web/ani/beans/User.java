@@ -8,6 +8,7 @@ public class User {
     protected String address;
     protected String email;
     private String sex;
+    private String userType;
 
     // constructor
     public User(){
@@ -76,6 +77,16 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append("User name is: ").append(this.fistName).
+                append(" his email is ").append(this.email).
+                append(" and he is: ").append(this.userType);
+
+        return buffer.toString();
+    }
+
     // ??
     public boolean equals(User userP) {
         boolean fistNameEqual = this.fistName.equals(userP.fistName);
@@ -86,5 +97,13 @@ public class User {
         return
                 fistNameEqual && lastNameEqual && ageEqual && addressEqual;
 
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 }

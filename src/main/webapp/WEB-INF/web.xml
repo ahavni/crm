@@ -20,6 +20,11 @@
         <servlet-class>web.ani.servlets.ListAllUserServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>LoginServlet</servlet-name>
+        <servlet-class>web.ani.servlets.LoginServlet</servlet-class>
+    </servlet>
+
     <!-- mapping -->
     <servlet-mapping>
         <servlet-name>RegisterUserServlet</servlet-name>
@@ -33,7 +38,12 @@
 
     <servlet-mapping>
         <servlet-name>ListAllUserServlet</servlet-name>
-        <url-pattern>/listall</url-pattern>
+        <url-pattern>/listAllUsers</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LoginServlet</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
 
 </web-app>

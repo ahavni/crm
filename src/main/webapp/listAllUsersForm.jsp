@@ -1,28 +1,36 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.*, web.ani.beans.User" %>
 <HTML>
 <head>
 </head>
 <body>
-<table border="2">
-    <tr>
-        <td>ID</td>
-        <td>First Name</td>
-        <td>Last Name</td>
-        <td>Age</td>
-    </tr>
-
-    <c:forEach items="${requestScope.users}" var="user">
-        <tr>
-            <td><c:out value="${user.id}"></c:out></td>
-            <td><c:out value="${user.firstName}"></c:out></td>
-            <td><c:out value="${user.lastName}"></c:out></td>
-            <td><c:out value="${user.age}"></c:out></td>
-        </tr>
-    </c:forEach>
-
-</table>
-
-
+    <%
+        ArrayList<User> userList = new ArrayList<User>();
+        userList = (ArrayList<User>)request.getAttribute("usersList");
+        if(userList == null){
+    %>
+            <p>Sorry, no  data in the database</p>
+    <%
+        }
+        else{
+    %>
+            <table border="2">
+                <tr>
+                    <td>First Name</td>
+                    <td>Last Name</td>
+                    <td>Age</td>
+                </tr>
+    <%
+            for (User user: userList){
+    %>
+                <tr>
+                 <td><%= user.getFistName() %></td>
+                 <td><%= user.getLastName() %></td>
+                 <td><%= user.getAge() %></td>
+                </tr>
+    <%
+           }
+        }
+    %>
+        </table>
 </body>
 </HTML>

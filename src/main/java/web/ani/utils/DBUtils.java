@@ -69,7 +69,8 @@ public class DBUtils {
     }
 
 
-        public static List<User> getUsersFromDB(Connection conn) {
+        public static ArrayList<User> getUsersFromDB(Connection conn) {
+            System.out.println("In get users method ");
             Statement stmt = null;
             ArrayList<User> usersList = new ArrayList<User>();
             User user;
@@ -78,15 +79,18 @@ public class DBUtils {
                 stmt = conn.createStatement();
                 String sql = "SELECT * FROM USERS";
                 ResultSet rs = stmt.executeQuery(sql);
-
+                System.out.println("User query result: " + rs);
                 while (rs.next()) {
                     user = new User();
 //                    user.setId(rs.getInt("id"));
                     user.setFistName(rs.getString("firstName"));
                     user.setLastName(rs.getString("lastName"));
                     user.setAge(rs.getInt("age"));
-//                    System.out.println(user);
+                    user.setUserType((rs.getString("user_type")));
+                    System.out.println(user);
+
                     usersList.add(user);
+//                    System.out.println("User is added to the list:::::::" +usersList.add(user));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();

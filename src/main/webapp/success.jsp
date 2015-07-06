@@ -1,8 +1,8 @@
 <%@ page import="web.ani.beans.User" %>
     <html>
-    <head>
-    </head>
-    <body>
+        <head>
+        </head>
+        <body>
         <%
             User user = (User) request.getAttribute("created_user");
             if(user == null){
@@ -19,5 +19,5 @@
         <%
         }
         %>
-    </body>
+        </body>
 </html>
