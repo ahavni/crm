@@ -104,5 +104,29 @@ public class DBUtils {
             return usersList;
         }
 
+    public static User getUserByEmail(Connection conn, String emailP){
+        Statement stmt = null;
+        User user = new User();
 
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM USERS WHERE EMAIL='" + emailP + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                System.out.println(rs.getString("firstname"));
+                user.setFistName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setAge(rs.getInt("age"));
+                user.setAddress(rs.getString("address"));
+                user.setEmail(rs.getString("email"));
+                user.setSex(rs.getString("sex"));
+                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("pass"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
 }
