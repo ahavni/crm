@@ -1,5 +1,5 @@
 <html>
 <body>
-<jsp:include page="login.html"/>
+<jsp:include page="menu.jsp"/>
 </body>
 </html>

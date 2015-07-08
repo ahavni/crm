@@ -37,6 +37,8 @@ public class DBUtils {
                     " address VARCHAR(255), " +
                     " email VARCHAR(255), " +
                     " sex VARCHAR(255), " +
+                    " user_type VARCHAR(10), " +
+                    " pass VARCHAR(100), " +
                     " PRIMARY KEY (id)) ";
 
             stmt.executeUpdate(sql);
@@ -55,13 +57,17 @@ public class DBUtils {
         String tableName = "USERS";
         try {
             stmt = conn.createStatement();
-            stmt.execute("insert into " + tableName + " (firstName, lastName, age, address, email, sex) values ('"
-                    + user.getFistName() + "','"
-                    + user.getLastName() + "',"
-                    + user.getAge() + ",'"
-                    + user.getAddress() + "','"
-                    + user.getEmail() + "','"
-                    + user.getSex() + "')");
+            stmt.execute("insert into " + tableName +
+                        " (firstName, lastName, age, address, email, sex, user_type, pass) " +
+                        "values ('"
+                                    + user.getFistName() + "','"
+                                    + user.getLastName() + "',"
+                                    + user.getAge() + ",'"
+                                    + user.getAddress() + "','"
+                                    + user.getEmail() + "','"
+                                    + user.getSex() + "','"
+                                    + user.getUserType() + "','"
+                                    + user.getPassword() + "')");
             stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();

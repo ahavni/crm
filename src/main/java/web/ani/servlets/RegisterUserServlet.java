@@ -2,6 +2,7 @@ package web.ani.servlets;
 
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
+import web.ani.utils.MD5;
 
 import java.sql.SQLException;
 import javax.servlet.ServletException;
@@ -15,12 +16,15 @@ import java.sql.Connection;
 public class RegisterUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String hashPass = MD5.crypt(req.getParameter("password"));
         User newUser = new User(req.getParameter("first_name"),
                                 req.getParameter("last_name"),
                                 Integer.parseInt(req.getParameter("age")),
                                 req.getParameter("address"),
                                 req.getParameter("email"),
-                                req.getParameter("sex")
+                                req.getParameter("sex"),
+                                req.getParameter("user_type"),
+                                hashPass
                                 );
         Connection conn = null;
 

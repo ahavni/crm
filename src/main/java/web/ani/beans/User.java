@@ -1,6 +1,6 @@
 package web.ani.beans;
 
-public class User {
+public class User implements IUser{
     // User attributes
     protected String fistName;
     protected String lastName;
@@ -9,23 +9,23 @@ public class User {
     protected String email;
     private String sex;
     private String userType;
+    private String password;
 
     // constructor
     public User(){
-        this.fistName = "";
-        this.lastName = "";
-        this.age = 0;
-        this.address = "";
-        this.sex = "";
     }
 
-    public User(String fistNameP, String lastNameP, int ageP, String addressP, String emailP, String sexP){
+    public User(String fistNameP, String lastNameP, int ageP,
+                String addressP, String emailP, String sexP,
+                String userTypeP, String passwordP){
         this.fistName = fistNameP;
         this.lastName = lastNameP;
         this.age = ageP;
         this.address = addressP;
         this.email = emailP;
         this.sex = sexP;
+        this.userType = userTypeP;
+        this.password = passwordP;
     }
 
     // getters and setter
@@ -77,6 +77,23 @@ public class User {
         this.email = email;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
@@ -97,13 +114,5 @@ public class User {
         return
                 fistNameEqual && lastNameEqual && ageEqual && addressEqual;
 
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    public void setUserType(String userType) {
-        this.userType = userType;
     }
 }
