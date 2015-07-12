@@ -13,9 +13,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Anichka on 27.5.2015 г..
- */
 public class ListAllUserServlet extends HttpServlet{
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
@@ -27,7 +24,7 @@ public class ListAllUserServlet extends HttpServlet{
             ArrayList<User> userList = DBUtils.getUsersFromDB(conn);
 
             req.setAttribute("usersList", userList);
-//            req.getRequestDispatcher("listAllUsersForm.jsp").forward(req, resp);
+//            req.getRequestDispatcher("listAllUsers_form.jsp").forward(req, resp);
             if (userList.isEmpty()){
                 System.out.println("Sorry No Users");
             }else {
@@ -35,7 +32,7 @@ public class ListAllUserServlet extends HttpServlet{
                     System.out.println(user.toString());
                 }
             }
-            getServletConfig().getServletContext().getRequestDispatcher("/listAllUsersForm.jsp").forward(req, resp);
+            getServletConfig().getServletContext().getRequestDispatcher("/listAllUsers_form.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
