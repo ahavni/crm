@@ -4,7 +4,7 @@
         </head>
         <body>
         <%
-            User user = (User) request.getAttribute("created_user");
+            User user = (User) request.getAttribute("user");
             if(user == null){
         %>
         <p>Sorry, Something went wrong</p>

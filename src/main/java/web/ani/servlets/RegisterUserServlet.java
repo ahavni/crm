@@ -47,7 +47,7 @@ public class RegisterUserServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
 
-            req.setAttribute("created_user", newUser);
+            req.setAttribute("user", newUser);
             req.getRequestDispatcher("success.jsp").forward(req, resp);
         }
     }

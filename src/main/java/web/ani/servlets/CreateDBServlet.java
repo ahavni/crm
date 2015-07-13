@@ -46,7 +46,7 @@ public class CreateDBServlet extends HttpServlet {
                 // Table exists
                 System.out.println("Table USERS - already existing");
             } else {
-                DBUtils.createUSERStable(this.conn);
+                DBUtils.createUserTable(this.conn);
             }
         } catch (SQLException e) {
             System.out.println("Problem initializing the sql connection ");

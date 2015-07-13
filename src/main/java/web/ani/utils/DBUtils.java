@@ -24,22 +24,22 @@ public class DBUtils {
         }
     }
 
-    public static void createUSERStable(Connection conn) throws SQLException {
+    public static void createUserTable(Connection conn) throws SQLException {
         Statement stmt = null;
         System.out.println("Creating table in given database...");
         stmt = conn.createStatement();
         try {
             String sql = "CREATE TABLE USERS " +
-                    "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-                    " firstName VARCHAR(255), " +
-                    " lastName VARCHAR(255), " +
-                    " age INTEGER, " +
-                    " address VARCHAR(255), " +
-                    " email VARCHAR(255), " +
-                    " sex VARCHAR(255), " +
-                    " user_type VARCHAR(10), " +
-                    " pass VARCHAR(100), " +
-                    " PRIMARY KEY (id)) ";
+                            "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+                            " firstName VARCHAR(255), " +
+                            " lastName VARCHAR(255), " +
+                            " age INTEGER, " +
+                            " address VARCHAR(255), " +
+                            " email VARCHAR(255), " +
+                            " sex VARCHAR(255), " +
+                            " user_type VARCHAR(10), " +
+                            " pass VARCHAR(100), " +
+                            " PRIMARY KEY (id)) ";
 
             stmt.executeUpdate(sql);
             System.out.println("Created table in given database...");
@@ -57,26 +57,23 @@ public class DBUtils {
         String tableName = "USERS";
         try {
             stmt = conn.createStatement();
-            stmt.execute("insert into " + tableName +
-                        " (firstName, lastName, age, address, email, sex, user_type, pass) " +
-                        "values ('"
-                                    + user.getFistName() + "','"
-                                    + user.getLastName() + "',"
-                                    + user.getAge() + ",'"
-                                    + user.getAddress() + "','"
-                                    + user.getEmail() + "','"
-                                    + user.getSex() + "','"
-                                    + user.getUserType() + "','"
-                                    + user.getPassword() + "')");
+            stmt.execute("INSERT INTO " + tableName +
+                            " (firstName, lastName, age, address, email, sex, user_type, pass) " + "values ('"
+                            + user.getFistName() + "','"
+                            + user.getLastName() + "',"
+                            + user.getAge() + ",'"
+                            + user.getAddress() + "','"
+                            + user.getEmail() + "','"
+                            + user.getSex() + "','"
+                            + user.getUserType() + "','"
+                            + user.getPassword() + "')");
             stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
     }
 
-
         public static ArrayList<User> getUsersFromDB(Connection conn) {
-            System.out.println("In get users method ");
             Statement stmt = null;
             ArrayList<User> usersList = new ArrayList<User>();
             User user;
@@ -85,18 +82,20 @@ public class DBUtils {
                 stmt = conn.createStatement();
                 String sql = "SELECT * FROM USERS";
                 ResultSet rs = stmt.executeQuery(sql);
-                System.out.println("User query result: " + rs);
+
                 while (rs.next()) {
                     user = new User();
-//                    user.setId(rs.getInt("id"));
+
                     user.setFistName(rs.getString("firstName"));
                     user.setLastName(rs.getString("lastName"));
                     user.setAge(rs.getInt("age"));
-                    user.setUserType((rs.getString("user_type")));
-                    System.out.println(user);
+                    user.setAddress(rs.getString("address"));
+                    user.setEmail(rs.getString("email"));
+                    user.setSex(rs.getString("sex"));
+                    user.setUserType(rs.getString("user_type"));
+                    user.setPassword(rs.getString("pass"));
 
                     usersList.add(user);
-//                    System.out.println("User is added to the list:::::::" +usersList.add(user));
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -112,8 +111,8 @@ public class DBUtils {
             stmt = conn.createStatement();
             String sql = "SELECT * FROM USERS WHERE EMAIL='" + emailP + "'";
             ResultSet rs = stmt.executeQuery(sql);
+
             while (rs.next()) {
-                System.out.println(rs.getString("firstname"));
                 user.setFistName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setAge(rs.getInt("age"));
@@ -128,5 +127,27 @@ public class DBUtils {
             e.printStackTrace();
         }
         return user;
+    }
+
+    public static void updateUser(Connection conn, User user) {
+        Statement stmt = null;
+        String tableName = "USERS";
+        try {
+            stmt = conn.createStatement();
+            stmt.execute("UPDATE " + tableName +
+                    " SET "
+                    + "firstName='" + user.getFistName() + "',"
+                    + "lastName='" + user.getLastName() + "',"
+                    + "age=" + user.getAge() + ","
+                    + "address='" + user.getAddress() + "',"
+                    + "email='" + user.getEmail() + "',"
+                    + "sex='" + user.getSex() + "',"
+                    + "user_type='" + user.getUserType() + "',"
+                    + "pass='" + user.getPassword() + "'" +
+                    " WHERE EMAIL='" + user.getEmail() + "'");
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+        }
     }
 }

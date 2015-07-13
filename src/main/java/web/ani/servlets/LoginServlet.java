@@ -1,5 +1,6 @@
 package web.ani.servlets;
 
+import org.apache.log4j.Logger;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 import web.ani.utils.MD5;
@@ -13,16 +14,21 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public class LoginServlet extends HttpServlet {
+    final static Logger logger = Logger.getLogger(LoginServlet.class);
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Entering in LoginServlet doPost method");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
+        logger.info(": Username = " + username + " and password = " + password);
         Connection conn = null;
         User user = null;
 
         try {
             conn = DBUtils.createDBConnection();
             user = DBUtils.getUserByEmail(conn, username);
+            logger.info("DB connection was successful");
+            logger.info("DB username = " + user.getEmail() + " and DB password = " + user.getPassword() );
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -33,10 +39,16 @@ public class LoginServlet extends HttpServlet {
             }
         }
 
-        if(user.getPassword().equals(MD5.crypt(password))){
-            System.out.println("Match");
+        String encryptPass = MD5.crypt(password);
+        logger.info("Encrypted password is " + encryptPass);
+        logger.info("Result from comparison the two pass is" + user.getPassword().equals(encryptPass));
+        if(user.getPassword().equals(encryptPass)){
+            logger.info("User authentication is successful");
             req.setAttribute("found_user", user);
             req.getRequestDispatcher("home.jsp").forward(req, resp);
+            logger.info("Redirect user object to home.jsp");
+        }else{
+            logger.info("User authentication did not pass: DB user = " + user.toString());
         }
     }
 }
