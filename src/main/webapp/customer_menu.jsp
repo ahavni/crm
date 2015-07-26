@@ -1,8 +1,12 @@
 <html>
-<body>
-<a href="userDetails_form.jsp">My Details</a><br>
-<a href="createDB">Create DB</a><br>
-<a href="registerUser_form.html">New registration</a><br>
-<a href="listAllUsers">List All users</a><br>
-</body>
+    <body>
+        <a href="userDetails_form.jsp">My details</a></br>
+        <a href="">My consultants details</a><br>
+        <a href="">List my orders</a><br>
+        <a href="">List all products</a><br>
+        <a href="">Search my orders</a><br>
+        <a href="">Search products</a><br>
+        <a href="">Add new order</a><br>
+        <a href="">Cancel order</a><br>
+    </body>
 </html>

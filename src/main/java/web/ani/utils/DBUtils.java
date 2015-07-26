@@ -1,5 +1,6 @@
 package web.ani.utils;
 
+import web.ani.beans.Customer;
 import web.ani.beans.User;
 
 import java.sql.*;
@@ -149,5 +150,35 @@ public class DBUtils {
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();
         }
+    }
+
+    public static ArrayList<Customer> getCustomersFromDB(Connection conn) {
+        Statement stmt = null;
+        ArrayList<Customer> customersList = new ArrayList<Customer>();
+        Customer customer;
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM USERS where user_type = \'customer\'";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                customer = new Customer();
+
+                customer.setFistName(rs.getString("firstName"));
+                customer.setLastName(rs.getString("lastName"));
+                customer.setAge(rs.getInt("age"));
+                customer.setAddress(rs.getString("address"));
+                customer.setEmail(rs.getString("email"));
+                customer.setSex(rs.getString("sex"));
+                customer.setUserType(rs.getString("user_type"));
+                customer.setPassword(rs.getString("pass"));
+
+                customersList.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customersList;
     }
 }

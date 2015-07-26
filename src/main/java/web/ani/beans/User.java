@@ -93,7 +93,6 @@ public class User implements IUser{
         this.password = password;
     }
 
-
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
@@ -104,7 +103,7 @@ public class User implements IUser{
         return buffer.toString();
     }
 
-    // ??
+    // override?
     public boolean equals(User userP) {
         boolean fistNameEqual = this.fistName.equals(userP.fistName);
         boolean lastNameEqual = this.lastName.equals(userP.lastName);
@@ -115,4 +114,10 @@ public class User implements IUser{
                 fistNameEqual && lastNameEqual && ageEqual && addressEqual;
 
     }
+
+    // is it
+    public void userDetails(){
+
+    }
+
 }

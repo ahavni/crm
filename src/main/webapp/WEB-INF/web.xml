@@ -30,6 +30,11 @@
         <servlet-class>web.ani.servlets.UserDetailsServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>ListAllCustomersServlet</servlet-name>
+        <servlet-class>web.ani.servlets.ListAllCustomersServlet</servlet-class>
+    </servlet>
+
     <!-- mapping -->
     <servlet-mapping>
         <servlet-name>RegisterUserServlet</servlet-name>
@@ -54,6 +59,11 @@
     <servlet-mapping>
         <servlet-name>UserDetailsServlet</servlet-name>
         <url-pattern>/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ListAllCustomersServlet</servlet-name>
+        <url-pattern>/listAllCustomers</url-pattern>
     </servlet-mapping>
 
 </web-app>

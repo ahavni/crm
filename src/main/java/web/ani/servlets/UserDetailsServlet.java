@@ -31,7 +31,7 @@ public class UserDetailsServlet extends HttpServlet {
             updateUser(user);
         }
         req.setAttribute("user", user);// TO BE RENAMED
-        req.getRequestDispatcher("success.jsp").forward(req, resp);
+//        req.getRequestDispatcher("_success.jsp").forward(req, resp);
     }
 
 

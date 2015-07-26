@@ -44,7 +44,7 @@ public class LoginServlet extends HttpServlet {
         logger.info("Result from comparison the two pass is" + user.getPassword().equals(encryptPass));
         if(user.getPassword().equals(encryptPass)){
             logger.info("User authentication is successful");
-            req.setAttribute("found_user", user);
+            req.setAttribute("user", user);
             req.getRequestDispatcher("home.jsp").forward(req, resp);
             logger.info("Redirect user object to home.jsp");
         }else{

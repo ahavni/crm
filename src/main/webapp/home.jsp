@@ -6,7 +6,7 @@
         <body>
 
         <%
-        User user = (User) request.getAttribute("found_user");
+        User user = (User) request.getAttribute("user");
         if(user == null){
         %>
 
@@ -20,8 +20,9 @@
         <p> Welcome,
             <%= user.getFistName() %>
             <%= user.getLastName() %>
+            <a href="logout.jsp">Log out</a></br>
             <%
-                session.setAttribute("current_user", user);
+                session.setAttribute("user", user);
             %>
         </p>
 

@@ -5,7 +5,7 @@
 
         <body>
             <%
-            User user = (User) session.getAttribute("current_user");
+            User user = (User) session.getAttribute("user");
 
             if(user == null){
             %>
