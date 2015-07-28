@@ -9,7 +9,6 @@ import java.util.List;
 
 public class DBUtils {
 
-
     public static Connection createDBConnection() throws SQLException, ClassNotFoundException {
         String driver = "org.apache.derby.jdbc.EmbeddedDriver";
         Class.forName(driver);
@@ -74,7 +73,7 @@ public class DBUtils {
         }
     }
 
-        public static ArrayList<User> getUsersFromDB(Connection conn) {
+    public static ArrayList<User> getUsersFromDB(Connection conn) {
             Statement stmt = null;
             ArrayList<User> usersList = new ArrayList<User>();
             User user;
@@ -103,6 +102,37 @@ public class DBUtils {
             }
             return usersList;
         }
+
+    public static ArrayList<User> getUsersFromDB(Connection conn, String userType) {
+        Statement stmt = null;
+        ArrayList<User> usersList = new ArrayList<User>();
+        User user;
+
+        try {
+            stmt = conn.createStatement();
+//            String sql = "SELECT * FROM USERS";
+            String sql = "SELECT * FROM USERS where user_type = \'" + userType + "\'";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                user = new User();
+
+                user.setFistName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setAge(rs.getInt("age"));
+                user.setAddress(rs.getString("address"));
+                user.setEmail(rs.getString("email"));
+                user.setSex(rs.getString("sex"));
+                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("pass"));
+
+                usersList.add(user);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return usersList;
+    }
 
     public static User getUserByEmail(Connection conn, String emailP){
         Statement stmt = null;
@@ -152,33 +182,35 @@ public class DBUtils {
         }
     }
 
-    public static ArrayList<Customer> getCustomersFromDB(Connection conn) {
+    public static ArrayList<User> searchUsersFromDB(Connection conn, String whereCause) {
         Statement stmt = null;
-        ArrayList<Customer> customersList = new ArrayList<Customer>();
-        Customer customer;
+        ArrayList<User> usersList = new ArrayList<User>();
+        User user;
 
         try {
             stmt = conn.createStatement();
-            String sql = "SELECT * FROM USERS where user_type = \'customer\'";
+            String sql = "SELECT * FROM USERS where " + whereCause;
+
             ResultSet rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                customer = new Customer();
+                user = new Customer();
 
-                customer.setFistName(rs.getString("firstName"));
-                customer.setLastName(rs.getString("lastName"));
-                customer.setAge(rs.getInt("age"));
-                customer.setAddress(rs.getString("address"));
-                customer.setEmail(rs.getString("email"));
-                customer.setSex(rs.getString("sex"));
-                customer.setUserType(rs.getString("user_type"));
-                customer.setPassword(rs.getString("pass"));
+                user.setFistName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setAge(rs.getInt("age"));
+                user.setAddress(rs.getString("address"));
+                user.setEmail(rs.getString("email"));
+                user.setSex(rs.getString("sex"));
+                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("pass"));
 
-                customersList.add(customer);
+                usersList.add(user);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return customersList;
+        return usersList;
     }
+
 }

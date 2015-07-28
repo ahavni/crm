@@ -17,7 +17,7 @@
 
     <servlet>
         <servlet-name>ListAllUserServlet</servlet-name>
-        <servlet-class>web.ani.servlets.ListAllUserServlet</servlet-class>
+        <servlet-class>web.ani.servlets.ListUsersServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -32,8 +32,14 @@
 
     <servlet>
         <servlet-name>ListAllCustomersServlet</servlet-name>
-        <servlet-class>web.ani.servlets.ListAllCustomersServlet</servlet-class>
+        <servlet-class>web.ani.servlets.ListCustomersServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <servlet-class>web.ani.servlets.SearchUserServlet</servlet-class>
+    </servlet>
+
 
     <!-- mapping -->
     <servlet-mapping>
@@ -64,6 +70,11 @@
     <servlet-mapping>
         <servlet-name>ListAllCustomersServlet</servlet-name>
         <url-pattern>/listAllCustomers</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>SearchUserServlet</servlet-name>
+        <url-pattern>/searchUser</url-pattern>
     </servlet-mapping>
 
 </web-app>

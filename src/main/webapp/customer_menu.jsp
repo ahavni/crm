@@ -1,6 +1,6 @@
 <html>
     <body>
-        <a href="userDetails_form.jsp">My details</a></br>
+        <a href="userDetails.jsp">My details</a></br>
         <a href="">My consultants details</a><br>
         <a href="">List my orders</a><br>
         <a href="">List all products</a><br>

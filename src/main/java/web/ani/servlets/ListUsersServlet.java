@@ -1,6 +1,5 @@
 package web.ani.servlets;
 
-import web.ani.beans.Customer;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 
@@ -12,17 +11,26 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class ListAllCustomersServlet extends HttpServlet {
+public class ListUsersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
         Connection conn = null;
 
         try {
             conn = DBUtils.createDBConnection();
-            ArrayList<Customer> userList = DBUtils.getCustomersFromDB(conn);
+            ArrayList<User> userList = DBUtils.getUsersFromDB(conn);
             req.setAttribute("usersList", userList);
-            getServletConfig().getServletContext().getRequestDispatcher("/listAllUser_form.jsp").forward(req, resp);
+            /*
+            if (userList.isEmpty()){
+                System.out.println("Sorry No Users");
+            }else {
+                for (User user : userList) {
+                    System.out.println(user.toString());
+                }
+            }*/
+            getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
