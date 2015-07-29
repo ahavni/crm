@@ -28,6 +28,18 @@ public class User implements IUser{
         this.password = passwordP;
     }
 
+    public User(String fistNameP, String lastNameP, int ageP,
+                String addressP, String emailP, String sexP,
+                String userTypeP){
+        this.fistName = fistNameP;
+        this.lastName = lastNameP;
+        this.age = ageP;
+        this.address = addressP;
+        this.email = emailP;
+        this.sex = sexP;
+        this.userType = userTypeP;
+    }
+
     // getters and setter
     public String getFistName() {
         return fistName;

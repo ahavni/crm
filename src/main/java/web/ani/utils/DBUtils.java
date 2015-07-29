@@ -1,7 +1,9 @@
 package web.ani.utils;
 
+import org.apache.log4j.Logger;
 import web.ani.beans.Customer;
 import web.ani.beans.User;
+import web.ani.servlets.SearchUserServlet;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -165,6 +167,7 @@ public class DBUtils {
         String tableName = "USERS";
         try {
             stmt = conn.createStatement();
+
             stmt.execute("UPDATE " + tableName +
                     " SET "
                     + "firstName='" + user.getFistName() + "',"
@@ -175,7 +178,28 @@ public class DBUtils {
                     + "sex='" + user.getSex() + "',"
                     + "user_type='" + user.getUserType() + "',"
                     + "pass='" + user.getPassword() + "'" +
-                    " WHERE EMAIL='" + user.getEmail() + "'");
+                    " WHERE EMAIL='" + user.getEmail() + "'");// get it from session?
+            stmt.close();
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+        }
+    }
+
+    public static void updateUserExceptPass(Connection conn, User user) {
+        Statement stmt = null;
+        String tableName = "USERS";
+        try {
+            stmt = conn.createStatement();
+            stmt.execute("UPDATE " + tableName +
+                    " SET "
+                    + "firstName='" + user.getFistName() + "',"
+                    + "lastName='" + user.getLastName() + "',"
+                    + "age=" + user.getAge() + ","
+                    + "address='" + user.getAddress() + "',"
+                    + "email='" + user.getEmail() + "',"
+                    + "sex='" + user.getSex() + "',"
+                    + "user_type='" + user.getUserType() + "'" +
+                    " WHERE EMAIL='" + user.getEmail() + "'"); // get it from session?
             stmt.close();
         } catch (SQLException sqlExcept) {
             sqlExcept.printStackTrace();

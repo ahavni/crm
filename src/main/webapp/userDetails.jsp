@@ -41,13 +41,13 @@
                     <input type="password" name="password" />
                 </div>
                 <div>
-                    <span>User sex is <%=user.getSex()%></span>
+                    <span>Sex</span>
                     <input type="radio" name="sex" value="man" <%=user.getSex().equals("man")? "checked": ""%>>Man</input>
                     <input type="radio" name="sex" value="woman" <%=user.getSex().equals("woman")? "checked": ""%>>Woman</input>
                     <input type="radio" name="sex" value="child" <%=user.getSex().equals("child")? "checked": ""%>>Child</input>
                 </div>
                 <div>
-                    <span>User type is <%=user.getUserType()%></span>
+                    <span>UserType</span>
                     <input type="radio" name="user_type" value="customer" <%=user.getUserType().equals("customer")? "checked": ""%>>Customer</input>
                     <input type="radio" name="user_type" value="consultant" <%=user.getUserType().equals("consultant")? "checked": ""%>>Consultant</input>
                 </div>

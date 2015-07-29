@@ -12,7 +12,7 @@
             }
             else{
         %>
-        <p> Welcome,
+        <p> Success,
             <%= user.getFistName() %>
             <%= user.getLastName() %>
         </p>
