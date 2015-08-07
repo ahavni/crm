@@ -37,16 +37,16 @@ public class DBUtils {
         stmt = conn.createStatement();
         try {
             String sql = "CREATE TABLE USERS " +
-                            "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
-                            " firstName VARCHAR(255), " +
-                            " lastName VARCHAR(255), " +
-                            " age INTEGER, " +
-                            " address VARCHAR(255), " +
-                            " email VARCHAR(255), " +
-                            " sex VARCHAR(255), " +
-                            " user_type VARCHAR(10), " +
-                            " pass VARCHAR(100), " +
-                            " PRIMARY KEY (id)) ";
+                    "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+                    " firstName VARCHAR(255), " +
+                    " lastName VARCHAR(255), " +
+                    " age INTEGER, " +
+                    " address VARCHAR(255), " +
+                    " email VARCHAR(255), " +
+                    " sex VARCHAR(255), " +
+                    " user_type VARCHAR(10), " +
+                    " pass VARCHAR(100), " +
+                    " PRIMARY KEY (id)) ";
 
             stmt.executeUpdate(sql);
             logger.info("USERS table created");
@@ -89,15 +89,15 @@ public class DBUtils {
         try {
             stmt = conn.createStatement();
             stmt.execute("INSERT INTO " + tableName +
-                            " (firstName, lastName, age, address, email, sex, user_type, pass) " + "values ('"
-                            + user.getFistName() + "','"
-                            + user.getLastName() + "',"
-                            + user.getAge() + ",'"
-                            + user.getAddress() + "','"
-                            + user.getEmail() + "','"
-                            + user.getSex() + "','"
-                            + user.getUserType() + "','"
-                            + user.getPassword() + "')");
+                    " (firstName, lastName, age, address, email, sex, user_type, pass) " + "values ('"
+                    + user.getFistName() + "','"
+                    + user.getLastName() + "',"
+                    + user.getAge() + ",'"
+                    + user.getAddress() + "','"
+                    + user.getEmail() + "','"
+                    + user.getSex() + "','"
+                    + user.getUserType() + "','"
+                    + user.getPassword() + "')");
             logger.info("User with email: " + user.getEmail() + " is added to the DB");
             stmt.close();
         } catch (SQLException sqlExcept) {
@@ -106,35 +106,35 @@ public class DBUtils {
     }
 
     public static ArrayList<User> getUsersFromDB(Connection conn) {
-            Statement stmt = null;
-            ArrayList<User> usersList = new ArrayList<User>();
-            User user;
+        Statement stmt = null;
+        ArrayList<User> usersList = new ArrayList<User>();
+        User user;
 
-            try {
-                stmt = conn.createStatement();
-                String sql = "SELECT * FROM USERS";
-                ResultSet rs = stmt.executeQuery(sql);
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT * FROM USERS";
+            ResultSet rs = stmt.executeQuery(sql);
 
-                while (rs.next()) {
-                    user = new User();
+            while (rs.next()) {
+                user = new User();
 
-                    user.setFistName(rs.getString("firstName"));
-                    user.setLastName(rs.getString("lastName"));
-                    user.setAge(rs.getInt("age"));
-                    user.setAddress(rs.getString("address"));
-                    user.setEmail(rs.getString("email"));
-                    user.setSex(rs.getString("sex"));
-                    user.setUserType(rs.getString("user_type"));
-                    user.setPassword(rs.getString("pass"));
+                user.setFistName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setAge(rs.getInt("age"));
+                user.setAddress(rs.getString("address"));
+                user.setEmail(rs.getString("email"));
+                user.setSex(rs.getString("sex"));
+                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("pass"));
 
-                    usersList.add(user);
-                    logger.info("User with email: " + user.getEmail() + " is got from DB");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+                usersList.add(user);
+                logger.info("User with email: " + user.getEmail() + " is got from DB");
             }
-            return usersList;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        return usersList;
+    }
 
     public static ArrayList<User> getUsersFromDB(Connection conn, String userType) {
         Statement stmt = null;
@@ -167,7 +167,7 @@ public class DBUtils {
         return usersList;
     }
 
-    public static User getUserByEmail(Connection conn, String emailP){
+    public static User getUserByEmail(Connection conn, String emailP) {
         Statement stmt = null;
         User user = new User();
 
@@ -274,4 +274,39 @@ public class DBUtils {
         return usersList;
     }
 
+    public static int getUserID(Connection conn, String emailP) {
+        Statement stmt;
+        int id = 0;
+
+        try {
+            stmt = conn.createStatement();
+            String sql = "SELECT id FROM USERS WHERE EMAIL='" + emailP + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                logger.info("id=" + rs.getInt("id"));
+                id = rs.getInt("id");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public static void assignUsers(Connection conn, int consultantId, int customerId){
+        Statement stmt;
+        String tableName = "USERS_RELATIONS";
+        try {
+            stmt = conn.createStatement();
+
+            stmt.execute("INSERT INTO " + tableName +
+                        " (consultant_id, customer_id) "
+                        + "VALUES(" + consultantId + ","
+                        + customerId + ")");
+            stmt.close();
+            logger.info("User with ID=" + consultantId + " assigned to user with ID=" + customerId);
+        } catch (SQLException sqlExcept) {
+            sqlExcept.printStackTrace();
+        }
+    }
 }

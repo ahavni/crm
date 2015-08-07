@@ -51,8 +51,11 @@
                     <input type="radio" name="user_type" value="customer" <%=user.getUserType().equals("customer")? "checked": ""%>>Customer</input>
                     <input type="radio" name="user_type" value="consultant" <%=user.getUserType().equals("consultant")? "checked": ""%>>Consultant</input>
                 </div>
+                </br>
+                <div>
                     <input type="submit" name="save_changes" value="Save">
                     <input type="reset" value="Reset">
+                </div>
                 </form>
 
             <%

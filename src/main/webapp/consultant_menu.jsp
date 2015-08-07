@@ -12,6 +12,6 @@
         <a href="">Add customer</a><br>
         <a href="">Remove product</a><br>
         <a href="">Remove customer</a><br>
-        <a href="">Assign customer</a><br>
+        <a href="assign">Assign customer</a><br>
     </body>
 </html>

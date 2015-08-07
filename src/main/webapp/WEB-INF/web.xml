@@ -40,6 +40,10 @@
         <servlet-class>web.ani.servlets.SearchUserServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>AssignConsultantCustomerServlet</servlet-name>
+        <servlet-class>web.ani.servlets.AssignConsultantCustomerServlet</servlet-class>
+    </servlet>
 
     <!-- mapping -->
     <servlet-mapping>
@@ -75,6 +79,11 @@
     <servlet-mapping>
         <servlet-name>SearchUserServlet</servlet-name>
         <url-pattern>/searchUser</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AssignConsultantCustomerServlet</servlet-name>
+        <url-pattern>/assign</url-pattern>
     </servlet-mapping>
 
 </web-app>
