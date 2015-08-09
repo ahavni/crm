@@ -126,10 +126,4 @@ public class User implements IUser{
                 fistNameEqual && lastNameEqual && ageEqual && addressEqual;
 
     }
-
-    // is it
-    public void userDetails(){
-
-    }
-
 }

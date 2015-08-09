@@ -10,8 +10,4 @@ public class Customer extends User{
                       String passwordP) {
         super(fistNameP, lastNameP, ageP, addressP, emailP, sexP, "customer", passwordP);
     }
-
-//    public static void listAllCustomer(){
-//
-//    }
 }

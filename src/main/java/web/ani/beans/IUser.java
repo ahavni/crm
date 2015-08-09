@@ -32,6 +32,4 @@ public interface IUser {
     public String getPassword();
 
     public void setPassword(String password);
-
-    public void userDetails();
 }
