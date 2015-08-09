@@ -1,5 +1,6 @@
 package web.ani.servlets;
 
+import org.apache.log4j.Logger;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 import web.ani.utils.MD5;
@@ -14,10 +15,14 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 
 public class RegisterUserServlet extends HttpServlet {
+    final static Logger logger = Logger.getLogger(RegisterUserServlet.class);
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
+
         String hashPass = MD5.crypt(req.getParameter("password"));
-        User newUser = new User(req.getParameter("first_name"),
+        User user = new User(req.getParameter("first_name"),
                                 req.getParameter("last_name"),
                                 Integer.parseInt(req.getParameter("age")),
                                 req.getParameter("address"),
@@ -26,18 +31,11 @@ public class RegisterUserServlet extends HttpServlet {
                                 req.getParameter("user_type"),
                                 hashPass
                                 );
-        Connection conn = null;
 
+        Connection conn = null;
         try {
             conn = DBUtils.createDBConnection();
-            DBUtils.addUser(conn, newUser);
-            /*
-            PrintWriter printWriter = resp.getWriter();
-            printWriter.println("Congrate you have created a User " +
-                    newUser.getFistName() + ", lastname: "
-                    + newUser.getLastName() + ", age: " +
-                    newUser.getAge());
-            */
+            DBUtils.addUser(conn, user);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -47,8 +45,9 @@ public class RegisterUserServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
 
-            req.setAttribute("user", newUser);
+            req.setAttribute("user", user);
             req.getRequestDispatcher("home.jsp").forward(req, resp);
+            logger.info("Redirect user object to home.jsp");
         }
     }
 }

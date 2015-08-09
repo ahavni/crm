@@ -20,10 +20,9 @@ public class SearchUserServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
         StringBuffer whereCause = new StringBuffer();
         String relation = "AND";
-        logger.info("Enter in SearchUserServlet");
-
 
         if(req.getParameter("first_name") != ""){
             whereCause.append("firstName like '%" + req.getParameter("first_name") + "%' " );
@@ -53,13 +52,14 @@ public class SearchUserServlet extends HttpServlet {
             whereCause.append("AND user_type in('" + seed + "')");
         }
 
-        logger.info(whereCause);
         Connection conn = null;
+        ArrayList<User> userList;
         try {
             conn = DBUtils.createDBConnection();
-            ArrayList<User> userList = DBUtils.searchUsersFromDB(conn, whereCause.toString());
+            userList = DBUtils.searchUsersFromDB(conn, whereCause.toString());
             req.setAttribute("usersList", userList);
             getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
+            logger.info("Redirect user object to listUsers.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -72,5 +72,4 @@ public class SearchUserServlet extends HttpServlet {
             }
         }
     }
-
 }

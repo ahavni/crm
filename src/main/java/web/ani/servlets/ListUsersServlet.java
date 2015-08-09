@@ -1,5 +1,6 @@
 package web.ani.servlets;
 
+import org.apache.log4j.Logger;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 
@@ -14,23 +15,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListUsersServlet extends HttpServlet {
+    final static Logger logger = Logger.getLogger(ListUsersServlet.class);
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException {
-        Connection conn = null;
+        logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
 
+        Connection conn = null;
+        ArrayList<User> userList;
         try {
             conn = DBUtils.createDBConnection();
-            ArrayList<User> userList = DBUtils.getUsersFromDB(conn);
+            userList = DBUtils.getUsersFromDB(conn);
+
             req.setAttribute("usersList", userList);
-            /*
-            if (userList.isEmpty()){
-                System.out.println("Sorry No Users");
-            }else {
-                for (User user : userList) {
-                    System.out.println(user.toString());
-                }
-            }*/
             getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
+            logger.info("Redirect user object to listUsers.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {

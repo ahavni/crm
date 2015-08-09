@@ -18,18 +18,20 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("in doGet");
-        ArrayList<User> consultantsList = new ArrayList<User>();
-        ArrayList<User> customersList = new ArrayList<User>();
-        Connection conn = null;
+        logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
 
+        ArrayList<User> consultantsList;
+        ArrayList<User> customersList;
+        Connection conn = null;
         try {
             conn = DBUtils.createDBConnection();
             consultantsList = DBUtils.getUsersFromDB(conn, "consultant");
             customersList = DBUtils.getUsersFromDB(conn, "customer");
+
             req.setAttribute("consultant", consultantsList);
             req.setAttribute("customer", customersList);
             getServletConfig().getServletContext().getRequestDispatcher("/assignCustomerConsultant.jsp").forward(req, resp);
+            logger.info("Redirect user object to assignCustomerConsultant.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -44,16 +46,15 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        logger.info("in goPost");
-        Connection conn = null;
-        logger.info(req.getParameter("selected_consultant"));
-        logger.info(req.getParameter("selected_customer"));
+        logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
+        logger.info("Customer " + req.getParameter("selected_customer") + " assigned to consultant: " + req.getParameter("selected_consultant"));
 
+        Connection conn = null;
         try {
             conn = DBUtils.createDBConnection();
             DBUtils.assignUsers(conn,
-                    DBUtils.getUserID(conn, req.getParameter("selected_consultant")),
-                    DBUtils.getUserID(conn, req.getParameter("selected_customer")));
+                                DBUtils.getUserID(conn, req.getParameter("selected_consultant")),
+                                DBUtils.getUserID(conn, req.getParameter("selected_customer")));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -65,5 +66,6 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
         }
 //        req.setAttribute("user", user);
 //        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        //???
     }
 }

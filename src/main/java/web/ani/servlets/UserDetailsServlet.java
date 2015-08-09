@@ -18,6 +18,8 @@ public class UserDetailsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
+
         User user = new User(req.getParameter("first_name"),
                     req.getParameter("last_name"),
                     Integer.parseInt(req.getParameter("age")),
@@ -43,13 +45,12 @@ public class UserDetailsServlet extends HttpServlet {
         logger.info("Update user bean in the session");
         req.setAttribute("user", user);
         req.getRequestDispatcher("home.jsp").forward(req, resp);
+        logger.info("Redirect user object to home.jsp");
     }
 
 
     void updateUser(User newUserP) {
-
         Connection conn = null;
-
         try {
             conn = DBUtils.createDBConnection();
             DBUtils.updateUser(conn, newUserP);
@@ -65,9 +66,7 @@ public class UserDetailsServlet extends HttpServlet {
     }
 
     void updateUserExceptPass(User newUserP) {
-
         Connection conn = null;
-
         try {
             conn = DBUtils.createDBConnection();
             DBUtils.updateUserExceptPass(conn, newUserP);
