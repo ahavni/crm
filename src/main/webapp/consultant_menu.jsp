@@ -8,8 +8,7 @@
         <a href="">List orders per customers</a><br>
         <a href="searchUser.jsp">Search users</a><br>
         <a href="">Search products</a><br>
-        <a href="">Add product</a><br>
-        <a href="">Add customer</a><br>
+        <a href="addProduct.html">Add product</a><br>
         <a href="">Remove product</a><br>
         <a href="">Remove customer</a><br>
         <a href="assign">Assign customer</a><br>

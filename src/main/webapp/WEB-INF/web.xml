@@ -45,6 +45,16 @@
         <servlet-class>web.ani.servlets.AssignConsultantCustomerServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>AddProductServlet</servlet-name>
+        <servlet-class>web.ani.servlets.AddProductServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>BuyProductsServlet</servlet-name>
+        <servlet-class>web.ani.servlets.BuyProductsServlet</servlet-class>
+    </servlet>
+
     <!-- mapping -->
     <servlet-mapping>
         <servlet-name>RegisterUserServlet</servlet-name>
@@ -85,5 +95,17 @@
         <servlet-name>AssignConsultantCustomerServlet</servlet-name>
         <url-pattern>/assign</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>AddProductServlet</servlet-name>
+        <url-pattern>/addProduct</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>BuyProductsServlet</servlet-name>
+        <url-pattern>/buyProducts</url-pattern>
+    </servlet-mapping>
+
+
 
 </web-app>

@@ -45,8 +45,9 @@ public class LoginServlet extends HttpServlet {
         if(user.getPassword().equals(encryptPass)){
             logger.info("Result from comparison the two pass is" + user.getPassword().equals(encryptPass));
             logger.info("User authentication is successful");
-            req.setAttribute("user", user);
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
+            req.getSession().setAttribute("user", user);
+//            req.getRequestDispatcher("home.jsp").forward(req, resp);
+            resp.sendRedirect("home.jsp");
             logger.info("Redirect user object to home.jsp");
         }else{
             logger.info("User authentication did not pass: DB user = " + user.toString());

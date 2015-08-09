@@ -31,8 +31,9 @@ public class DBUtils {
     public static void createUserTable(Connection conn) throws SQLException {
         logger.info("Entering DBUtils createUserTable() method ");
 
-        Statement stmt = conn.createStatement();
+
         try {
+            Statement stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "CREATE TABLE USERS " +
                         "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -48,6 +49,24 @@ public class DBUtils {
             logger.info("Creating USERS table in given database...");
             stmt.executeUpdate(sql);
             logger.info("USERS table created");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createProductsTable(Connection conn) throws SQLException {
+        logger.info("Entering DBUtils createProductsTable() method ");
+
+        Statement stmt = conn.createStatement();
+        try {
+            logger.info("Preparing SQL statement...");
+            String sql = "CREATE TABLE PRODUCTS " +
+                        "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+                        " name VARCHAR(255), " +
+                        " PRIMARY KEY (id)) ";
+            logger.info("Creating PRODUCTS table in given database...");
+            stmt.executeUpdate(sql);
+            logger.info("PRODUCTS table created");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -74,6 +93,27 @@ public class DBUtils {
         }
     }
 
+    public static void createProductsRelationsTable(Connection conn) throws SQLException {
+        logger.info("Entering DBUtils createProductsRelationsTable() method ");
+
+        Statement stmt = conn.createStatement();
+        try {
+            logger.info("Preparing SQL statement...");
+            String sql = "CREATE TABLE PRODUCTS_RELATIONS " +
+                    "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
+                    " customer_id INTEGER, " +
+                    " product_id INTEGER, " +
+                    " PRIMARY KEY (id), " +
+                    " FOREIGN KEY (customer_id) REFERENCES USERS(id), " +
+                    " FOREIGN KEY (product_id) REFERENCES PRODUCTS(id))";
+            logger.info("Creating PRODUCTS_RELATIONS table in given database...");
+            stmt.executeUpdate(sql);
+            logger.info("PRODUCTS_RELATIONS table created");
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void addUser(Connection conn, User user) throws SQLException{
         logger.info("Entering DBUtils addUser() method ");
 
@@ -91,6 +131,22 @@ public class DBUtils {
                         + user.getUserType() + "','"
                         + user.getPassword() + "')");
             logger.info("User with email: " + user.getEmail() + " is added to the DB");
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void addProduct(Connection conn, String product) throws SQLException{
+        logger.info("Entering DBUtils addProduct() method ");
+
+        Statement stmt = conn.createStatement();
+        try {
+            logger.info("Executing SQL statement...");
+            stmt.execute("INSERT INTO PRODUCTS " +
+                        " (name) " + "values ('"
+                        + product + "')");
+            logger.info("Product: " + product + " is added to the DB");
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -161,6 +217,28 @@ public class DBUtils {
             e.printStackTrace();
         }
         return usersList;
+    }
+
+    public static ArrayList<String> getProductsFromDB(Connection conn) throws SQLException{
+        logger.info("Entering DBUtils getProductsFromDB() method ");
+
+        Statement stmt = conn.createStatement();
+        ArrayList<String> productList = new ArrayList<String>();
+
+        try {
+            logger.info("Preparing SQL statement...");
+            String sql = "SELECT * FROM PRODUCTS";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            logger.info("Getting products from database...");
+            while (rs.next()) {
+                productList.add(rs.getString("name"));
+                logger.info("Product: " + rs.getString("name") + " is got from DB");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return productList;
     }
 
     public static User getUserByEmail(Connection conn, String emailP) throws SQLException{
@@ -276,7 +354,6 @@ public class DBUtils {
 
         Statement stmt = conn.createStatement();
         int id = 0;
-
         try {
             logger.info("Preparing SQL statement...");
             String sql = "SELECT id FROM USERS WHERE EMAIL='" + emailP + "'";
@@ -285,6 +362,25 @@ public class DBUtils {
                 id = rs.getInt("id");
             }
             logger.info("User with email: " + emailP + " has ID = " + id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
+    public static int getProductID(Connection conn, String product) throws SQLException{
+        logger.info("Entering DBUtils getProductID() method ");
+
+        Statement stmt = conn.createStatement();
+        int id = 0;
+        try {
+            logger.info("Preparing SQL statement...");
+            String sql = "SELECT id FROM PRODUCTS WHERE name='" + product + "'";
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()) {
+                id = rs.getInt("id");
+            }
+            logger.info("Product " + product + " has ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -303,6 +399,23 @@ public class DBUtils {
                         + customerId + ")");
             stmt.close();
             logger.info("Customer with ID=" + consultantId + " assigned to consultant with ID=" + customerId);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void assignProductToUser(Connection conn, int customerId, int productId)throws SQLException{
+        logger.info("Entering DBUtils assignProductToUser() method ");
+
+        Statement stmt = conn.createStatement();
+        try {
+            logger.info("Executing SQL statement...");
+            stmt.execute("INSERT INTO PRODUCTS_RELATIONS " +
+                        " (customer_id, product_id) "
+                        + "VALUES(" + customerId + ","
+                        + productId + ")");
+            stmt.close();
+            logger.info("Customer with ID=" + customerId + " assigned to product with ID=" + productId);
         } catch (SQLException e) {
             e.printStackTrace();
         }

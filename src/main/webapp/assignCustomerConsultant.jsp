@@ -25,6 +25,7 @@
 
                 <div>
                     <select name="selected_consultant">
+                    <option selected="selected">Select consultant</option>
                         <%
                         for(User user:consultantList){
                         %>
@@ -40,6 +41,7 @@
                 </div>
                 <div>
                     <select name="selected_customer">
+                    <option selected="selected">Select customer</option>
                         <%
                         for(User user:customerList){
                         %>
@@ -51,7 +53,7 @@
                 </div>
                 </br>
                 <div>
-                    <input type="submit" name="assign" value="Assign">
+                    <input type="submit" value="Assign">
                 </div>
             </form>
             <%

@@ -12,27 +12,23 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
-public class AssignConsultantCustomerServlet extends HttpServlet {
-    final static Logger logger = Logger.getLogger(AssignConsultantCustomerServlet.class);
+public class BuyProductsServlet extends HttpServlet{
+    final static Logger logger = Logger.getLogger(BuyProductsServlet.class);
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
 
-        ArrayList<User> consultantsList;
-        ArrayList<User> customersList;
+        ArrayList<String> productsList;
         Connection conn = null;
         try {
             conn = DBUtils.createDBConnection();
-            consultantsList = DBUtils.getUsersFromDB(conn, "consultant");
-            customersList = DBUtils.getUsersFromDB(conn, "customer");
+            productsList = DBUtils.getProductsFromDB(conn);
 
-            req.setAttribute("consultant", consultantsList);
-            req.setAttribute("customer", customersList);
-            getServletConfig().getServletContext().getRequestDispatcher("/assignCustomerConsultant.jsp").forward(req, resp);
-            logger.info("Redirect user object to assignCustomerConsultant.jsp");
+            req.setAttribute("products", productsList);
+            getServletConfig().getServletContext().getRequestDispatcher("/buyProduct.jsp").forward(req, resp);
+            logger.info("Redirect user object to buyProduct.jsp");
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -45,17 +41,16 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
             }
         }
     }
-
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
-        logger.info("Customer " + req.getParameter("selected_customer") + " assigned to consultant: " + req.getParameter("selected_consultant"));
+        logger.info("Customer " + req.getParameter("selected_customer") + " bought product: " + req.getParameter("selected_product"));
 
         Connection conn = null;
         try {
             conn = DBUtils.createDBConnection();
-            DBUtils.assignUsers(conn,
-                                DBUtils.getUserID(conn, req.getParameter("selected_consultant")),
-                                DBUtils.getUserID(conn, req.getParameter("selected_customer")));
+//            DBUtils.assignProductToUser(conn,
+//                                        // current user details???
+//                                        DBUtils.getProductID(conn, req.getParameter("selected_product")));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -65,15 +60,8 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
         }
-        Enumeration attributes = req.getSession().getAttributeNames();
-        while(attributes.hasMoreElements()){
-          String attrName = attributes.nextElement().toString();
-          logger.info("Session " + attrName + " value " + req.getSession().getAttribute(attrName).toString());
-        }
-
-//        User user = (User) req.getSession().getAttribute("user");
 //        req.setAttribute("user", user);
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+//        req.getRequestDispatcher("home.jsp").forward(req, resp);
         //???
     }
 }

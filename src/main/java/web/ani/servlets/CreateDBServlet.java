@@ -34,7 +34,7 @@ public class CreateDBServlet extends HttpServlet {
         try {
             conn = DBUtils.createDBConnection();
             // call method to create DB
-            DBUtils.createUserRelationsTable(conn);
+            DBUtils.createProductsRelationsTable(conn);
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
