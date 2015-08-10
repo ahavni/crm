@@ -28,12 +28,14 @@ public class DBUtils {
         }
     }
 
-    public static void createUserTable(Connection conn) throws SQLException {
+    public static void createUserTable() {
         logger.info("Entering DBUtils createUserTable() method ");
 
-
+        Connection conn = null;
+        Statement stmt;
         try {
-            Statement stmt = conn.createStatement();
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "CREATE TABLE USERS " +
                         "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -49,16 +51,26 @@ public class DBUtils {
             logger.info("Creating USERS table in given database...");
             stmt.executeUpdate(sql);
             logger.info("USERS table created");
-        } catch (SQLException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
+
     }
 
-    public static void createProductsTable(Connection conn) throws SQLException {
+    public static void createProductsTable() {
         logger.info("Entering DBUtils createProductsTable() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "CREATE TABLE PRODUCTS " +
                         "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -67,16 +79,25 @@ public class DBUtils {
             logger.info("Creating PRODUCTS table in given database...");
             stmt.executeUpdate(sql);
             logger.info("PRODUCTS table created");
-        } catch (SQLException e) {
+        }  catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static void createUserRelationsTable(Connection conn) throws SQLException {
+    public static void createUserRelationsTable() {
         logger.info("Entering DBUtils createUserRelationsTable() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "CREATE TABLE USERS_RELATIONS " +
                         "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -90,14 +111,23 @@ public class DBUtils {
             logger.info("USERS_RELATIONS table created");
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static void createProductsRelationsTable(Connection conn) throws SQLException {
+    public static void createProductsRelationsTable(){
         logger.info("Entering DBUtils createProductsRelationsTable() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "CREATE TABLE PRODUCTS_RELATIONS " +
                     "(id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), " +
@@ -111,14 +141,23 @@ public class DBUtils {
             logger.info("PRODUCTS_RELATIONS table created");
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static void addUser(Connection conn, User user) throws SQLException{
+    public static void addUser(User user){
         logger.info("Entering DBUtils addUser() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO USERS " +
                         " (firstName, lastName, age, address, email, sex, user_type, pass) " + "values ('"
@@ -134,14 +173,23 @@ public class DBUtils {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static void addProduct(Connection conn, String product) throws SQLException{
+    public static void addProduct(String product){
         logger.info("Entering DBUtils addProduct() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO PRODUCTS " +
                         " (name) " + "values ('"
@@ -150,16 +198,25 @@ public class DBUtils {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static ArrayList<User> getUsersFromDB(Connection conn) throws SQLException{
+    public static ArrayList<User> getUsersFromDB(){
         logger.info("Entering DBUtils getUsersFromDB() method ");
 
-        Statement stmt = conn.createStatement();;
         ArrayList<User> usersList = new ArrayList<User>();
         User user;
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM USERS";
             ResultSet rs = stmt.executeQuery(sql);
@@ -182,17 +239,26 @@ public class DBUtils {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return usersList;
     }
 
-    public static ArrayList<User> getUsersFromDB(Connection conn, String userType) throws SQLException{
+    public static ArrayList<User> getUsersFromDB(String userType){
         logger.info("Entering DBUtils getUsersFromDB() method ");
 
-        Statement stmt = conn.createStatement();
         ArrayList<User> usersList = new ArrayList<User>();
         User user;
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM USERS where user_type = \'" + userType + "\'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -215,17 +281,25 @@ public class DBUtils {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return usersList;
     }
 
-    public static ArrayList<String> getProductsFromDB(Connection conn) throws SQLException{
+    public static ArrayList<String> getProductsFromDB(){
         logger.info("Entering DBUtils getProductsFromDB() method ");
 
-        Statement stmt = conn.createStatement();
         ArrayList<String> productList = new ArrayList<String>();
-
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM PRODUCTS";
             ResultSet rs = stmt.executeQuery(sql);
@@ -237,16 +311,26 @@ public class DBUtils {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
+
         return productList;
     }
 
-    public static User getUserByEmail(Connection conn, String emailP) throws SQLException{
+    public static User getUserByEmail(String emailP){
         logger.info("Entering DBUtils getUserByEmail() method ");
 
-        Statement stmt = conn.createStatement();;
         User user = new User();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM USERS WHERE EMAIL='" + emailP + "'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -266,15 +350,24 @@ public class DBUtils {
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return user;
     }
 
-    public static void updateUser(Connection conn, User user) throws SQLException{
+    public static void updateUser(User user) {
         logger.info("Entering DBUtils updateUser() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("UPDATE USERS " +
                         " SET "
@@ -291,14 +384,23 @@ public class DBUtils {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static void updateUserExceptPass(Connection conn, User user) throws SQLException{
+    public static void updateUserExceptPass(User user) {
         logger.info("Entering DBUtils updateUserExceptPass() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("UPDATE USERS " +
                         " SET "
@@ -314,16 +416,25 @@ public class DBUtils {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 
-    public static ArrayList<User> searchUsersFromDB(Connection conn, String whereCause) throws SQLException{
+    public static ArrayList<User> searchUsersFromDB(String whereCause) {
         logger.info("Entering DBUtils searchUsersFromDB() method ");
 
-        Statement stmt = conn.createStatement();
         ArrayList<User> usersList = new ArrayList<User>();
         User user;
+        Connection conn = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM USERS where " + whereCause;
             ResultSet rs = stmt.executeQuery(sql);
@@ -345,15 +456,22 @@ public class DBUtils {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return usersList;
     }
 
-    public static int getUserID(Connection conn, String emailP) throws SQLException{
+    public static int getUserID(String emailP){
         logger.info("Entering DBUtils getUserID() method ");
 
-        Statement stmt = conn.createStatement();
         int id = 0;
+        Connection conn = null;
+        Statement stmt = null;
         try {
             logger.info("Preparing SQL statement...");
             String sql = "SELECT id FROM USERS WHERE EMAIL='" + emailP + "'";
@@ -364,15 +482,20 @@ public class DBUtils {
             logger.info("User with email: " + emailP + " has ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return id;
     }
 
-    public static int getProductID(Connection conn, String product) throws SQLException{
+    public static int getProductID(String product){
         logger.info("Entering DBUtils getProductID() method ");
 
-        Statement stmt = conn.createStatement();
         int id = 0;
+        Connection conn = null;
+        Statement stmt = null;
         try {
             logger.info("Preparing SQL statement...");
             String sql = "SELECT id FROM PRODUCTS WHERE name='" + product + "'";
@@ -383,14 +506,19 @@ public class DBUtils {
             logger.info("Product " + product + " has ID = " + id);
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
         return id;
     }
 
-    public static void assignUsers(Connection conn, int consultantId, int customerId)throws SQLException{
+    public static void assignUsers(int consultantId, int customerId) {
         logger.info("Entering DBUtils assignUsers() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt = null;
         try {
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO USERS_RELATIONS " +
@@ -402,12 +530,18 @@ public class DBUtils {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
+        }
     }
 
-    public static void assignProductToUser(Connection conn, int customerId, int productId)throws SQLException{
+    public static void assignProductToUser(int customerId, int productId) {
         logger.info("Entering DBUtils assignProductToUser() method ");
 
-        Statement stmt = conn.createStatement();
+        Connection conn = null;
+        Statement stmt = null;
         try {
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO PRODUCTS_RELATIONS " +
@@ -418,6 +552,11 @@ public class DBUtils {
             logger.info("Customer with ID=" + customerId + " assigned to product with ID=" + productId);
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+        finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
         }
     }
 }

@@ -24,52 +24,38 @@ public class SearchUserServlet extends HttpServlet {
         StringBuffer whereCause = new StringBuffer();
         String relation = "AND";
 
-        if(req.getParameter("first_name") != ""){
-            whereCause.append("firstName like '%" + req.getParameter("first_name") + "%' " );
+        if (req.getParameter("first_name") != "") {
+            whereCause.append("firstName like '%" + req.getParameter("first_name") + "%' ");
         }
-        if(req.getParameter("last_name") != ""){
+        if (req.getParameter("last_name") != "") {
             whereCause.append(relation + " lastName like '%" + req.getParameter("last_name") + "%' ");
         }
-        if(req.getParameter("age") != ""){
+        if (req.getParameter("age") != "") {
             whereCause.append(relation + " age=" + Integer.parseInt(req.getParameter("age")) + " ");
         }
-        if(req.getParameter("address") != ""){
+        if (req.getParameter("address") != "") {
             whereCause.append(relation + " address like '%" + req.getParameter("address") + "%' ");
         }
-        if(req.getParameter("email") != ""){
+        if (req.getParameter("email") != "") {
             whereCause.append(relation + " email like '%" + req.getParameter("email") + "%' ");
         }
-        if(req.getParameter("sex") != null){
+        if (req.getParameter("sex") != null) {
             whereCause.append(relation + " sex=" + req.getParameter("sex") + " ");
         }
-        if(req.getParameter("customer") != null) {
+        if (req.getParameter("customer") != null) {
             whereCause.append("user_type = customer ");
         }
 
         String[] searchedUserTypes = req.getParameterValues("user_type");
-        if(searchedUserTypes != null && searchedUserTypes.length > 0){
+        if (searchedUserTypes != null && searchedUserTypes.length > 0) {
             String seed = StringUtils.join(searchedUserTypes, "','");
             whereCause.append("AND user_type in('" + seed + "')");
         }
 
-        Connection conn = null;
         ArrayList<User> userList;
-        try {
-            conn = DBUtils.createDBConnection();
-            userList = DBUtils.searchUsersFromDB(conn, whereCause.toString());
-            req.setAttribute("usersList", userList);
-            getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
-            logger.info("Redirect user object to listUsers.jsp");
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
-        }
+        userList = DBUtils.searchUsersFromDB(whereCause.toString());
+        req.setAttribute("usersList", userList);
+        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
+        logger.info("Redirect user object to listUsers.jsp");
     }
 }

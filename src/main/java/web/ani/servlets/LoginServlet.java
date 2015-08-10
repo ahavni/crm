@@ -23,21 +23,8 @@ public class LoginServlet extends HttpServlet {
         String password = req.getParameter("password");
         logger.info(" username = " + username + " and password = " + password);
 
-        Connection conn = null;
         User user = null;
-        try {
-            conn = DBUtils.createDBConnection();
-            user = DBUtils.getUserByEmail(conn, username);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
-        }
-
+        user = DBUtils.getUserByEmail(username);
         String encryptPass = MD5.crypt(password);
         logger.info("Crypt password is " + user.getPassword());
         logger.info("Encrypted password is " + encryptPass);

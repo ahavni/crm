@@ -5,14 +5,11 @@ import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 import web.ani.utils.MD5;
 
-import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Connection;
 
 public class RegisterUserServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(RegisterUserServlet.class);
@@ -32,25 +29,12 @@ public class RegisterUserServlet extends HttpServlet {
                                 hashPass
                                 );
 
-        Connection conn = null;
-        try {
-            conn = DBUtils.createDBConnection();
-            DBUtils.addUser(conn, user);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
+        DBUtils.addUser(user);
+        logger.info("Create user's session");
+        req.getSession().setAttribute("user", user);
 
-            logger.info("Create user's session");
-            req.getSession().setAttribute("user", user);
-
-            resp.sendRedirect("home.jsp");
-            logger.info("Redirect user object to home.jsp");
-        }
+        resp.sendRedirect("home.jsp");
+        logger.info("Redirect user object to home.jsp");
     }
 }
 

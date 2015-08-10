@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.util.Enumeration;
 
 public class UserDetailsServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(UserDetailsServlet.class);
@@ -52,34 +49,10 @@ public class UserDetailsServlet extends HttpServlet {
 
 
     void updateUser(User newUserP) {
-        Connection conn = null;
-        try {
-            conn = DBUtils.createDBConnection();
-            DBUtils.updateUser(conn, newUserP);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
-        }
+        DBUtils.updateUser(newUserP);
     }
 
     void updateUserExceptPass(User newUserP) {
-        Connection conn = null;
-        try {
-            conn = DBUtils.createDBConnection();
-            DBUtils.updateUserExceptPass(conn, newUserP);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
-        }
+        DBUtils.updateUserExceptPass(newUserP);
     }
 }
