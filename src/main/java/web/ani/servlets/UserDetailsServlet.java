@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
 public class UserDetailsServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(UserDetailsServlet.class);
@@ -29,6 +30,7 @@ public class UserDetailsServlet extends HttpServlet {
                     req.getParameter("user_type")
         );
 
+        // TODO:
         if(req.getParameter("save_changes") != null){
             if(req.getParameter("password") != "") {
                 logger.info("Password is going to change");
@@ -42,9 +44,9 @@ public class UserDetailsServlet extends HttpServlet {
             }
         }
 
-        logger.info("Update user bean in the session");
-        req.setAttribute("user", user);
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
+        logger.info("Update user's details in the session");
+        req.getSession().setAttribute("user", user);
+        resp.sendRedirect("home.jsp");
         logger.info("Redirect user object to home.jsp");
     }
 

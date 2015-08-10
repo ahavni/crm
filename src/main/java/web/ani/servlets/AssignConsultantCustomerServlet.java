@@ -65,15 +65,7 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
         }
-        Enumeration attributes = req.getSession().getAttributeNames();
-        while(attributes.hasMoreElements()){
-          String attrName = attributes.nextElement().toString();
-          logger.info("Session " + attrName + " value " + req.getSession().getAttribute(attrName).toString());
-        }
 
-//        User user = (User) req.getSession().getAttribute("user");
-//        req.setAttribute("user", user);
-        req.getRequestDispatcher("home.jsp").forward(req, resp);
-        //???
+        resp.sendRedirect("home.jsp");
     }
 }

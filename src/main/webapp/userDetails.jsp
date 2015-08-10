@@ -5,7 +5,7 @@
 
         <body>
             <%
-            User user = (User) session.getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
 
             if(user == null){
             %>

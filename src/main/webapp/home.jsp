@@ -21,9 +21,6 @@
             <%= user.getFistName() %>
             <%= user.getLastName() %>
             <a href="logout.jsp">Log out</a></br>
-            <%
-                session.setAttribute("user", user);
-            %>
         </p>
 
         <%

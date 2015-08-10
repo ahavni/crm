@@ -45,8 +45,10 @@ public class RegisterUserServlet extends HttpServlet {
                 DBUtils.closeDBConnection(conn);
             }
 
-            req.setAttribute("user", user);
-            req.getRequestDispatcher("home.jsp").forward(req, resp);
+            logger.info("Create user's session");
+            req.getSession().setAttribute("user", user);
+
+            resp.sendRedirect("home.jsp");
             logger.info("Redirect user object to home.jsp");
         }
     }

@@ -6,8 +6,8 @@ public class Customer extends User{
 
     }
     public Customer(String fistNameP, String lastNameP, int ageP,
-                      String addressP, String emailP, String sexP,
-                      String passwordP) {
+                    String addressP, String emailP, String sexP,
+                    String passwordP) {
         super(fistNameP, lastNameP, ageP, addressP, emailP, sexP, "customer", passwordP);
     }
 }

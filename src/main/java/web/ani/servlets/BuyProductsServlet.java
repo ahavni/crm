@@ -46,11 +46,12 @@ public class BuyProductsServlet extends HttpServlet{
         logger.info("Customer " + req.getParameter("selected_customer") + " bought product: " + req.getParameter("selected_product"));
 
         Connection conn = null;
+        User user = (User) req.getSession().getAttribute("user");
         try {
             conn = DBUtils.createDBConnection();
-//            DBUtils.assignProductToUser(conn,
-//                                        // current user details???
-//                                        DBUtils.getProductID(conn, req.getParameter("selected_product")));
+            DBUtils.assignProductToUser(conn,
+                                        DBUtils.getUserID(conn, user.getEmail()),
+                                        DBUtils.getProductID(conn, req.getParameter("selected_product")));
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
@@ -60,8 +61,6 @@ public class BuyProductsServlet extends HttpServlet{
                 DBUtils.closeDBConnection(conn);
             }
         }
-//        req.setAttribute("user", user);
-//        req.getRequestDispatcher("home.jsp").forward(req, resp);
-        //???
+        resp.sendRedirect("home.jsp");
     }
 }
