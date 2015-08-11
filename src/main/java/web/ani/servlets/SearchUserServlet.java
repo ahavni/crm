@@ -52,6 +52,7 @@ public class SearchUserServlet extends HttpServlet {
             whereCause.append("AND user_type in('" + seed + "')");
         }
 
+        logger.info("WHERE cause is: " + whereCause);
         ArrayList<User> userList;
         userList = DBUtils.searchUsersFromDB(whereCause.toString());
         req.setAttribute("usersList", userList);

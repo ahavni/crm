@@ -1,6 +1,7 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
+import web.ani.beans.Customer;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 import web.ani.utils.MD5;
@@ -30,10 +31,10 @@ public class LoginServlet extends HttpServlet {
         logger.info("Encrypted password is " + encryptPass);
 
         if(user.getPassword().equals(encryptPass)){
-            logger.info("Result from comparison the two pass is" + user.getPassword().equals(encryptPass));
+            logger.info("Result from comparison the two pass is " + user.getPassword().equals(encryptPass));
             logger.info("User authentication is successful");
 
-            logger.info("Create user's session");
+            logger.info("Create user's session and load user's data in it");
             req.getSession().setAttribute("user", user);
 
             resp.sendRedirect("home.jsp");

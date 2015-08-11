@@ -1,5 +1,7 @@
 package web.ani.beans;
 
+import web.ani.utils.DBUtils;
+
 public class User implements IUser{
     // User attributes
     protected String fistName;
@@ -108,22 +110,22 @@ public class User implements IUser{
     @Override
     public String toString() {
         StringBuffer buffer = new StringBuffer();
-        buffer.append("User name is: ").append(this.fistName).
-                append(" his email is ").append(this.email).
-                append(" and he is: ").append(this.userType);
+        buffer.append("Username is: ").append(this.fistName).
+                append(" email is ").append(this.email).
+                append(" user_type: ").append(this.userType);
 
         return buffer.toString();
     }
 
-    // override?
     public boolean equals(User userP) {
-        boolean fistNameEqual = this.fistName.equals(userP.fistName);
-        boolean lastNameEqual = this.lastName.equals(userP.lastName);
-        boolean ageEqual = (this.age == userP.age);
-        boolean addressEqual = this.address.equals(userP.address);
+        return this.email.equals(userP.email);
+    }
 
-        return
-                fistNameEqual && lastNameEqual && ageEqual && addressEqual;
+    public void updateUser(User newUserP) {
+        DBUtils.updateUser(newUserP);
+    }
 
+    public void updateUserExceptPass(User newUserP) {
+        DBUtils.updateUserExceptPass(newUserP);
     }
 }

@@ -1,6 +1,7 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
+import web.ani.beans.Customer;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 
@@ -29,10 +30,8 @@ public class BuyProductsServlet extends HttpServlet{
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
         logger.info("Customer " + req.getParameter("selected_customer") + " bought product: " + req.getParameter("selected_product"));
 
-        User user = (User) req.getSession().getAttribute("user");
-        logger.info("User from session - email:" + user.getEmail());
-        DBUtils.assignProductToUser(DBUtils.getUserID(user.getEmail()),
-                                    DBUtils.getProductID(req.getParameter("selected_product")));
+        Customer user = (Customer) req.getSession().getAttribute("user");
+        user.buyProducts(user.getEmail(),req.getParameter("selected_product"));
         resp.sendRedirect("home.jsp");
     }
 }

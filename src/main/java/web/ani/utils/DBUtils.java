@@ -1,6 +1,7 @@
 package web.ani.utils;
 
 import org.apache.log4j.Logger;
+import web.ani.beans.Consultant;
 import web.ani.beans.Customer;
 import web.ani.beans.User;
 import java.sql.*;
@@ -334,9 +335,13 @@ public class DBUtils {
             logger.info("Preparing SQL statement...");
             String sql = "SELECT * FROM USERS WHERE EMAIL='" + emailP + "'";
             ResultSet rs = stmt.executeQuery(sql);
+            boolean isConsultant = false;
 
             logger.info("Getting user from database...");
             while (rs.next()) {
+                isConsultant = rs.getString("user_type").equals("consultant");
+                user = isConsultant ? new Consultant() : new Customer();
+
                 user.setFistName(rs.getString("firstName"));
                 user.setLastName(rs.getString("lastName"));
                 user.setAge(rs.getInt("age"));

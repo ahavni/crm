@@ -32,4 +32,8 @@ public interface IUser {
     public String getPassword();
 
     public void setPassword(String password);
+
+    public void updateUser(User newUserP);
+
+    public void updateUserExceptPass(User newUserP);
 }

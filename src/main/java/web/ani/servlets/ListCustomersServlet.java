@@ -1,15 +1,13 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
-import web.ani.beans.User;
-import web.ani.utils.DBUtils;
+import web.ani.beans.Consultant;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class ListCustomersServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(ListCustomersServlet.class);
@@ -17,11 +15,9 @@ public class ListCustomersServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
-
-        ArrayList<User> userList;
-        userList = DBUtils.getUsersFromDB("customer");
-        req.setAttribute("usersList", userList);
-        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);//TODO
+        Consultant user = (Consultant)req.getSession().getAttribute("user");
+        req.setAttribute("usersList", user.listAllCustomers());
+        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
         logger.info("Redirect user object to listUsers.jsp");
     }
 }

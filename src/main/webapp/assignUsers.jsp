@@ -18,7 +18,7 @@
             else{
             %>
 
-            <form method="POST" action="assign">
+            <form method="POST" action="assignUsers">
                 <div>
                     <p>Consultant</p>
                 </div>

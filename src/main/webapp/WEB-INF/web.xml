@@ -41,8 +41,8 @@
     </servlet>
 
     <servlet>
-        <servlet-name>AssignConsultantCustomerServlet</servlet-name>
-        <servlet-class>web.ani.servlets.AssignConsultantCustomerServlet</servlet-class>
+        <servlet-name>AssignUsersServlet</servlet-name>
+        <servlet-class>web.ani.servlets.AssignUsersServlet</servlet-class>
     </servlet>
 
     <servlet>
@@ -92,8 +92,8 @@
     </servlet-mapping>
 
     <servlet-mapping>
-        <servlet-name>AssignConsultantCustomerServlet</servlet-name>
-        <url-pattern>/assign</url-pattern>
+        <servlet-name>AssignUsersServlet</servlet-name>
+        <url-pattern>/assignUsers</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

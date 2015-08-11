@@ -1,6 +1,7 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
+import web.ani.beans.Consultant;
 import web.ani.utils.DBUtils;
 
 import javax.servlet.ServletException;
@@ -15,8 +16,8 @@ public class AddProductServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
-
-        DBUtils.addProduct(req.getParameter("product_name"));
+        Consultant user = (Consultant)req.getSession().getAttribute("user");
+        user.addProduct(req.getParameter("product_name"));
         resp.sendRedirect("/addProduct.html");
         logger.info("Redirect user object to addProduct.jsp");
     }
