@@ -21,7 +21,7 @@ public class BuyProductsServlet extends HttpServlet{
         ArrayList<String> productsList;
         productsList = DBUtils.getProductsFromDB();
         req.setAttribute("products", productsList);
-        getServletConfig().getServletContext().getRequestDispatcher("/buyProduct.jsp").forward(req, resp);//TODO
+        getServletConfig().getServletContext().getRequestDispatcher("/buyProduct.jsp").forward(req, resp);
         logger.info("Redirect user object to buyProduct.jsp");
 
     }
@@ -30,6 +30,7 @@ public class BuyProductsServlet extends HttpServlet{
         logger.info("Customer " + req.getParameter("selected_customer") + " bought product: " + req.getParameter("selected_product"));
 
         User user = (User) req.getSession().getAttribute("user");
+        logger.info("User from session - email:" + user.getEmail());
         DBUtils.assignProductToUser(DBUtils.getUserID(user.getEmail()),
                                     DBUtils.getProductID(req.getParameter("selected_product")));
         resp.sendRedirect("home.jsp");

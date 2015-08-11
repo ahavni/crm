@@ -471,8 +471,10 @@ public class DBUtils {
 
         int id = 0;
         Connection conn = null;
-        Statement stmt = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT id FROM USERS WHERE EMAIL='" + emailP + "'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -481,6 +483,8 @@ public class DBUtils {
             }
             logger.info("User with email: " + emailP + " has ID = " + id);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -495,8 +499,10 @@ public class DBUtils {
 
         int id = 0;
         Connection conn = null;
-        Statement stmt = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
             String sql = "SELECT id FROM PRODUCTS WHERE name='" + product + "'";
             ResultSet rs = stmt.executeQuery(sql);
@@ -505,6 +511,8 @@ public class DBUtils {
             }
             logger.info("Product " + product + " has ID = " + id);
         } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             if (conn != null) {
@@ -518,8 +526,10 @@ public class DBUtils {
         logger.info("Entering DBUtils assignUsers() method ");
 
         Connection conn = null;
-        Statement stmt = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO USERS_RELATIONS " +
                         " (consultant_id, customer_id) "
@@ -529,8 +539,9 @@ public class DBUtils {
             logger.info("Customer with ID=" + consultantId + " assigned to consultant with ID=" + customerId);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
             if (conn != null) {
                 DBUtils.closeDBConnection(conn);
             }
@@ -541,8 +552,10 @@ public class DBUtils {
         logger.info("Entering DBUtils assignProductToUser() method ");
 
         Connection conn = null;
-        Statement stmt = null;
+        Statement stmt;
         try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
             logger.info("Executing SQL statement...");
             stmt.execute("INSERT INTO PRODUCTS_RELATIONS " +
                         " (customer_id, product_id) "
@@ -552,8 +565,9 @@ public class DBUtils {
             logger.info("Customer with ID=" + customerId + " assigned to product with ID=" + productId);
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
             if (conn != null) {
                 DBUtils.closeDBConnection(conn);
             }

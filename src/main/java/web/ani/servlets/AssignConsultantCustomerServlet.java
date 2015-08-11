@@ -26,8 +26,7 @@ public class AssignConsultantCustomerServlet extends HttpServlet {
 
         req.setAttribute("consultant", consultantsList);
         req.setAttribute("customer", customersList);
-        resp.sendRedirect("/assignCustomerConsultant.jsp");// TODO
-        //getServletConfig().getServletContext().getRequestDispatcher("/assignCustomerConsultant.jsp").forward(req, resp);
+        resp.sendRedirect("/assignCustomerConsultant.jsp");
         logger.info("Redirect user object to assignCustomerConsultant.jsp");
 
     }

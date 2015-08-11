@@ -21,6 +21,6 @@ public class ListUsersServlet extends HttpServlet {
         ArrayList<User> userList;
         userList = DBUtils.getUsersFromDB();
         req.setAttribute("usersList", userList);
-        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);//TODO
+        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
     }
 }

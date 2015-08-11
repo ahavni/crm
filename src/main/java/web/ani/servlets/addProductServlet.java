@@ -17,8 +17,7 @@ public class AddProductServlet extends HttpServlet {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
 
         DBUtils.addProduct(req.getParameter("product_name"));
-        resp.sendRedirect("/addProduct.html");// TODO
-//        req.getRequestDispatcher("addProduct.html").forward(req, resp);
+        resp.sendRedirect("/addProduct.html");
         logger.info("Redirect user object to addProduct.jsp");
     }
 }
