@@ -40,6 +40,8 @@ public class Consultant extends User {
         DBUtils.assignUsers(DBUtils.getUserID(consultantEmail), DBUtils.getUserID(customerEmail));
     }
 
-
+    public ArrayList<Customer> listConsultantsCustomers(Consultant user){
+        return DBUtils.getConsultantsCustomersFromDB(DBUtils.getUserID(user.getEmail()));
+    }
 
 }

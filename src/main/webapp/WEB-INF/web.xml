@@ -55,6 +55,21 @@
         <servlet-class>web.ani.servlets.BuyProductsServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>ListProductsServlet</servlet-name>
+        <servlet-class>web.ani.servlets.ListProductsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ListCustomersProductsServlet</servlet-name>
+        <servlet-class>web.ani.servlets.ListCustomersProductsServlet</servlet-class>
+    </servlet>
+
+    <servlet>
+        <servlet-name>ListConsultantsCustomersServlet</servlet-name>
+        <servlet-class>web.ani.servlets.ListConsultantsCustomersServlet</servlet-class>
+    </servlet>
+
     <!-- mapping -->
     <servlet-mapping>
         <servlet-name>RegisterUserServlet</servlet-name>
@@ -106,6 +121,19 @@
         <url-pattern>/buyProducts</url-pattern>
     </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ListProductsServlet</servlet-name>
+        <url-pattern>/listProducts</url-pattern>
+    </servlet-mapping>
 
+    <servlet-mapping>
+        <servlet-name>ListCustomersProductsServlet</servlet-name>
+        <url-pattern>/listCustomersProductsServlet</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ListConsultantsCustomersServlet</servlet-name>
+        <url-pattern>/listConsultantsCustomersServlet</url-pattern>
+    </servlet-mapping>
 
 </web-app>

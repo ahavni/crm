@@ -1,5 +1,7 @@
 package web.ani.beans;
 
+import java.util.ArrayList;
+
 public interface IUser {
     public String getFistName();
 
@@ -36,4 +38,6 @@ public interface IUser {
     public void updateUser(User newUserP);
 
     public void updateUserExceptPass(User newUserP);
+
+    public ArrayList<String> listAllProducts();
 }

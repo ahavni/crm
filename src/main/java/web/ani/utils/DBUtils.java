@@ -208,7 +208,113 @@ public class DBUtils {
         }
     }
 
-    public static ArrayList<User> getUsersFromDB(){
+    public static ArrayList<String> getProductsFromDB(){
+        logger.info("Entering DBUtils getProductsFromDB() method ");
+
+        ArrayList<String> productsList = new ArrayList<String>();
+        Connection conn = null;
+        Statement stmt;
+        try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
+            logger.info("Preparing SQL statement...");
+            String sql = "SELECT * FROM PRODUCTS";
+            ResultSet rs = stmt.executeQuery(sql);
+
+            logger.info("Getting users from database...");
+            while (rs.next()) {
+                productsList.add(rs.getString("name"));
+                logger.info("Product: " + rs.getString("name") + " is got from DB");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
+        }
+        return productsList;
+    }
+
+    public static ArrayList<String> getCustomersProductsFromDB(int customerId){
+        logger.info("Entering DBUtils getCustomersProductsFromDB() method ");
+
+        ArrayList<String> productsList = new ArrayList<String>();
+        Connection conn = null;
+        Statement stmt;
+        try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
+            logger.info("Preparing SQL statement...");
+            String sql = "SELECT PRODUCTS.name " +
+                        "FROM PRODUCTS join products_RELATIONS ON PRODUCTS_RELATIONS.product_id = PRODUCTS.ID " +
+                        "where PRODUCTS_RELATIONS.customer_id =" + customerId;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            logger.info("Getting products of customer with id= " + customerId + " from database...");
+            while (rs.next()) {
+                productsList.add(rs.getString("name"));
+                logger.info("Product: " + rs.getString("name") + " is got from DB");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
+        }
+        return productsList;
+    }
+
+    public static ArrayList<Customer> getConsultantsCustomersFromDB(int consultantId){
+        logger.info("Entering DBUtils getConsultantsCustomersFromDB() method ");
+
+        ArrayList<Customer> usersList = new ArrayList<Customer>();
+        Customer user;
+        Connection conn = null;
+        Statement stmt;
+        try {
+            conn = DBUtils.createDBConnection();
+            stmt = conn.createStatement();
+            logger.info("Preparing SQL statement...");
+            String sql = "SELECT users.* " +
+                        "FROM USERS join USERS_RELATIONS ON USERS_RELATIONS.customer_id = USERS.ID " +
+                        "where USERS_RELATIONS.consultant_id = " + consultantId ;
+            ResultSet rs = stmt.executeQuery(sql);
+
+            logger.info("Getting customers of consultant with id= " + consultantId + " from database...");
+            while (rs.next()) {
+                user = new Customer();
+
+                user.setFistName(rs.getString("firstName"));
+                user.setLastName(rs.getString("lastName"));
+                user.setAge(rs.getInt("age"));
+                user.setAddress(rs.getString("address"));
+                user.setEmail(rs.getString("email"));
+                user.setSex(rs.getString("sex"));
+                user.setUserType(rs.getString("user_type"));
+                user.setPassword(rs.getString("pass"));
+
+                usersList.add(user);
+                logger.info("Customer with email: " + user.getEmail() + " is got from DB");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                DBUtils.closeDBConnection(conn);
+            }
+        }
+        return usersList;
+    }
+
+    public static ArrayList<User> getUsersFromDB() {
         logger.info("Entering DBUtils getUsersFromDB() method ");
 
         ArrayList<User> usersList = new ArrayList<User>();
@@ -250,7 +356,7 @@ public class DBUtils {
         return usersList;
     }
 
-    public static ArrayList<User> getUsersFromDB(String userType){
+    public static ArrayList<User> getUsersFromDB(String userType) {
         logger.info("Entering DBUtils getUsersFromDB() method ");
 
         ArrayList<User> usersList = new ArrayList<User>();
@@ -261,7 +367,7 @@ public class DBUtils {
             conn = DBUtils.createDBConnection();
             stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
-            String sql = "SELECT * FROM USERS where user_type = \'" + userType + "\'";
+            String sql = "SELECT * FROM USERS WHERE user_type='" + userType + "'";
             ResultSet rs = stmt.executeQuery(sql);
 
             logger.info("Getting " + userType + " from database...");
@@ -278,7 +384,7 @@ public class DBUtils {
                 user.setPassword(rs.getString("pass"));
 
                 usersList.add(user);
-                logger.info(userType + " with email: " + user.getEmail() + " is got from DB");
+                logger.info("User with email: " + user.getEmail() + " is got from DB");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -290,37 +396,6 @@ public class DBUtils {
             }
         }
         return usersList;
-    }
-
-    public static ArrayList<String> getProductsFromDB(){
-        logger.info("Entering DBUtils getProductsFromDB() method ");
-
-        ArrayList<String> productList = new ArrayList<String>();
-        Connection conn = null;
-        Statement stmt;
-        try {
-            conn = DBUtils.createDBConnection();
-            stmt = conn.createStatement();
-            logger.info("Preparing SQL statement...");
-            String sql = "SELECT * FROM PRODUCTS";
-            ResultSet rs = stmt.executeQuery(sql);
-
-            logger.info("Getting products from database...");
-            while (rs.next()) {
-                productList.add(rs.getString("name"));
-                logger.info("Product: " + rs.getString("name") + " is got from DB");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                DBUtils.closeDBConnection(conn);
-            }
-        }
-
-        return productList;
     }
 
     public static User getUserByEmail(String emailP){

@@ -2,6 +2,8 @@ package web.ani.beans;
 
 import web.ani.utils.DBUtils;
 
+import java.util.ArrayList;
+
 public class User implements IUser{
     // User attributes
     protected String fistName;
@@ -9,9 +11,9 @@ public class User implements IUser{
     protected int age;
     protected String address;
     protected String email;
-    private String sex;
-    private String userType;
-    private String password;
+    protected String sex;
+    protected String userType;
+    protected String password;
 
     // constructor
     public User(){
@@ -127,5 +129,9 @@ public class User implements IUser{
 
     public void updateUserExceptPass(User newUserP) {
         DBUtils.updateUserExceptPass(newUserP);
+    }
+
+    public ArrayList<String> listAllProducts(){
+        return DBUtils.getProductsFromDB();
     }
 }
