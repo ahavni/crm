@@ -5,7 +5,7 @@ import web.ani.utils.DBUtils;
 import java.util.ArrayList;
 
 public class Customer extends User{
-    protected ArrayList<String> productsist;
+    protected ArrayList<String> productsList;
     public Customer(){
 
     }
@@ -15,16 +15,18 @@ public class Customer extends User{
         super(fistNameP, lastNameP, ageP, addressP, emailP, sexP, "customer", passwordP);
     }
 
-    public void buyProducts(String customerEmail, String product){
-        DBUtils.assignProductToUser(DBUtils.getUserID(customerEmail),
-                                    DBUtils.getProductID(product));
-    }
-
     public void setCustomersProducts(Customer user){
-        productsist = DBUtils.getCustomersProductsFromDB(DBUtils.getUserID(user.getEmail()));
+        productsList = DBUtils.getCustomersProductsFromDB(DBUtils.getUserIDFromDB(user.getEmail()));
     }
 
     public ArrayList<String> getCustomersProducts(Customer user){
-        return productsist;
+        return productsList;
     }
+
+    public void buyProducts(String customerEmail, String product){
+        DBUtils.assignProductToUserInDB(DBUtils.getUserIDFromDB(customerEmail),
+                DBUtils.getProductIDFromDB(product));
+    }
+
+
 }

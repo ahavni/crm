@@ -151,8 +151,8 @@ public class DBUtils {
         }
     }
 
-    public static void addUser(User user){
-        logger.info("Entering DBUtils addUser() method ");
+    public static void addUserInDB(User user){
+        logger.info("Entering DBUtils addUserInDB() method ");
 
         Connection conn = null;
         Statement stmt;
@@ -183,8 +183,8 @@ public class DBUtils {
         }
     }
 
-    public static void addProduct(String product){
-        logger.info("Entering DBUtils addProduct() method ");
+    public static void addProductInDB(String product){
+        logger.info("Entering DBUtils addProductInDB() method ");
 
         Connection conn = null;
         Statement stmt;
@@ -398,8 +398,8 @@ public class DBUtils {
         return usersList;
     }
 
-    public static User getUserByEmail(String emailP){
-        logger.info("Entering DBUtils getUserByEmail() method ");
+    public static User getUserByEmailFromDB(String emailP){
+        logger.info("Entering DBUtils getUserByEmailFromDB() method ");
 
         User user = new User();
         Connection conn = null;
@@ -440,8 +440,8 @@ public class DBUtils {
         return user;
     }
 
-    public static void updateUser(User user) {
-        logger.info("Entering DBUtils updateUser() method ");
+    public static void updateUserInDB(User user) {
+        logger.info("Entering DBUtils updateUserInDB() method ");
 
         Connection conn = null;
         Statement stmt;
@@ -473,8 +473,8 @@ public class DBUtils {
         }
     }
 
-    public static void updateUserExceptPass(User user) {
-        logger.info("Entering DBUtils updateUserExceptPass() method ");
+    public static void updateUserExceptPassInDB(User user) {
+        logger.info("Entering DBUtils updateUserExceptPassInDB() method ");
 
         Connection conn = null;
         Statement stmt;
@@ -505,8 +505,8 @@ public class DBUtils {
         }
     }
 
-    public static ArrayList<User> searchUsersFromDB(String whereCause) {
-        logger.info("Entering DBUtils searchUsersFromDB() method ");
+    public static ArrayList<User> searchUsersInDB(String whereCause) {
+        logger.info("Entering DBUtils searchUsersInDB() method ");
 
         ArrayList<User> usersList = new ArrayList<User>();
         User user;
@@ -546,8 +546,8 @@ public class DBUtils {
         return usersList;
     }
 
-    public static int getUserID(String emailP){
-        logger.info("Entering DBUtils getUserID() method ");
+    public static int getUserIDFromDB(String emailP){
+        logger.info("Entering DBUtils getUserIDFromDB() method ");
 
         int id = 0;
         Connection conn = null;
@@ -574,8 +574,8 @@ public class DBUtils {
         return id;
     }
 
-    public static int getProductID(String product){
-        logger.info("Entering DBUtils getProductID() method ");
+    public static int getProductIDFromDB(String product){
+        logger.info("Entering DBUtils getProductIDFromDB() method ");
 
         int id = 0;
         Connection conn = null;
@@ -602,8 +602,8 @@ public class DBUtils {
         return id;
     }
 
-    public static void assignUsers(int consultantId, int customerId) {
-        logger.info("Entering DBUtils assignUsers() method ");
+    public static void assignUsersInDB(int consultantId, int customerId) {
+        logger.info("Entering DBUtils assignUsersInDB() method ");
 
         Connection conn = null;
         Statement stmt;
@@ -628,8 +628,8 @@ public class DBUtils {
         }
     }
 
-    public static void assignProductToUser(int customerId, int productId) {
-        logger.info("Entering DBUtils assignProductToUser() method ");
+    public static void assignProductToUserInDB(int customerId, int productId) {
+        logger.info("Entering DBUtils assignProductToUserInDB() method ");
 
         Connection conn = null;
         Statement stmt;

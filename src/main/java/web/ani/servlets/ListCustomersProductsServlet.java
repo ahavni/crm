@@ -17,7 +17,9 @@ public class ListCustomersProductsServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
         Customer user = (Customer)req.getSession().getAttribute("user");
-        req.setAttribute("productList", user.listCustomersProducts(user));
+        // todo: load customers details after(name,address, products etc. after log in authentication
+        user.setCustomersProducts(user);
+        req.setAttribute("productList", user.getCustomersProducts(user));
         getServletConfig().getServletContext().getRequestDispatcher("/listProducts.jsp").forward(req, resp);
     }
 }

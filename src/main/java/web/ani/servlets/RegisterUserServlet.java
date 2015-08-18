@@ -29,7 +29,7 @@ public class RegisterUserServlet extends HttpServlet {
                                 hashPass
                                 );
 
-        DBUtils.addUser(user);
+        DBUtils.addUserInDB(user);
         logger.info("Create user's session");
         req.getSession().setAttribute("user", user);
 

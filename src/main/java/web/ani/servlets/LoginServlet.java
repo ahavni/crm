@@ -1,7 +1,6 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
-import web.ani.beans.Customer;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 import web.ani.utils.MD5;
@@ -11,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public class LoginServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(LoginServlet.class);
@@ -25,7 +22,7 @@ public class LoginServlet extends HttpServlet {
         logger.info(" username = " + username + " and password = " + password);
 
         User user = null;
-        user = DBUtils.getUserByEmail(username);
+        user = DBUtils.getUserByEmailFromDB(username);
         String encryptPass = MD5.crypt(password);
         logger.info("Crypt password is " + user.getPassword());
         logger.info("Encrypted password is " + encryptPass);

@@ -1,6 +1,5 @@
 package web.ani.servlets;
 
-import org.apache.derby.iapi.util.StringUtil;
 import org.apache.log4j.Logger;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
@@ -10,8 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import org.apache.commons.lang3.StringUtils;
 
@@ -21,40 +18,43 @@ public class SearchUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
-        StringBuffer whereCause = new StringBuffer();
+        StringBuffer whereClause = new StringBuffer();
         String relation = "AND";
 
         if (req.getParameter("first_name") != "") {
-            whereCause.append("firstName like '%" + req.getParameter("first_name") + "%' ");
+            whereClause.append("firstName like '%" + req.getParameter("first_name") + "%' " + relation);
         }
         if (req.getParameter("last_name") != "") {
-            whereCause.append(relation + " lastName like '%" + req.getParameter("last_name") + "%' ");
+            whereClause.append(" lastName like '%" + req.getParameter("last_name") + "%' " + relation);
         }
         if (req.getParameter("age") != "") {
-            whereCause.append(relation + " age=" + Integer.parseInt(req.getParameter("age")) + " ");
+            whereClause.append(" age=" + Integer.parseInt(req.getParameter("age")) + " " + relation);
         }
         if (req.getParameter("address") != "") {
-            whereCause.append(relation + " address like '%" + req.getParameter("address") + "%' ");
+            whereClause.append(" address like '%" + req.getParameter("address") + "%' " + relation);
         }
         if (req.getParameter("email") != "") {
-            whereCause.append(relation + " email like '%" + req.getParameter("email") + "%' ");
+            whereClause.append(" email like '%" + req.getParameter("email") + "%' " + relation);
         }
         if (req.getParameter("sex") != null) {
-            whereCause.append(relation + " sex=" + req.getParameter("sex") + " ");
-        }
-        if (req.getParameter("customer") != null) {
-            whereCause.append("user_type = customer ");
+            whereClause.append(" sex='" + req.getParameter("sex") + "' " + relation);
         }
 
         String[] searchedUserTypes = req.getParameterValues("user_type");
         if (searchedUserTypes != null && searchedUserTypes.length > 0) {
             String seed = StringUtils.join(searchedUserTypes, "','");
-            whereCause.append("AND user_type in('" + seed + "')");
+            whereClause.append(" user_type in('" + seed + "')");
         }
 
-        logger.info("WHERE cause is: " + whereCause);
+        logger.info("WHERE cause before hasAND check is: " + whereClause);
+        boolean hasAND = whereClause.substring(whereClause.length()-3).equals("AND");
         ArrayList<User> userList;
-        userList = DBUtils.searchUsersFromDB(whereCause.toString());
+        if(hasAND){
+            userList = DBUtils.searchUsersInDB(whereClause.substring(0, whereClause.length()-3).toString());
+        }else{
+            userList = DBUtils.searchUsersInDB(whereClause.toString());
+        }
+
         req.setAttribute("usersList", userList);
         getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
         logger.info("Redirect user object to listUsers.jsp");

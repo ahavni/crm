@@ -124,11 +124,11 @@ public class User implements IUser{
     }
 
     public void updateUser(User newUserP) {
-        DBUtils.updateUser(newUserP);
+        DBUtils.updateUserInDB(newUserP);
     }
 
     public void updateUserExceptPass(User newUserP) {
-        DBUtils.updateUserExceptPass(newUserP);
+        DBUtils.updateUserExceptPassInDB(newUserP);
     }
 
     public ArrayList<String> listAllProducts(){

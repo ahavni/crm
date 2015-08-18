@@ -18,7 +18,7 @@ public class AddProductServlet extends HttpServlet {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
         Consultant user = (Consultant)req.getSession().getAttribute("user");
         user.addProduct(req.getParameter("product_name"));
-        resp.sendRedirect("/addProduct.html");
-        logger.info("Redirect user object to addProduct.jsp");
+        resp.sendRedirect("home.jsp");
+        logger.info("Redirect user object to addProductInDB.jsp");
     }
 }
