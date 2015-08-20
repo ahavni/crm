@@ -2,9 +2,11 @@
 <html>
 <head>
     <title>Registration name</title>
+    <script src="Validations.js" type="text/javascript"></script>
 </head>
-<body>
-<form method="POST" action="registration">
+<body onload="checkValidationAsset()">
+<button onclick="checkForm()">check validation</button>
+<form name="registration" method="POST" action="registration" onSubmit="return formValidation();">
     <div>
         <label>First Name:</label>
         <input type="text" name="first_name"/>
