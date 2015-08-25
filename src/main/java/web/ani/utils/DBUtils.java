@@ -401,7 +401,7 @@ public class DBUtils {
     public static User getUserByEmailFromDB(String emailP){
         logger.info("Entering DBUtils getUserByEmailFromDB() method ");
 
-        User user = new User();
+        User user = null;
         Connection conn = null;
         Statement stmt;
         try {
@@ -414,6 +414,10 @@ public class DBUtils {
 
             logger.info("Getting user from database...");
             while (rs.next()) {
+                if (user == null){
+                    user = new User();
+                }
+
                 isConsultant = rs.getString("user_type").equals("consultant");
                 user = isConsultant ? new Consultant() : new Customer();
 
@@ -437,6 +441,7 @@ public class DBUtils {
                 DBUtils.closeDBConnection(conn);
             }
         }
+
         return user;
     }
 

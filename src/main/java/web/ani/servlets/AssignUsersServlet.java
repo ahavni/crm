@@ -22,7 +22,7 @@ public class AssignUsersServlet extends HttpServlet {
         user = (Consultant)req.getSession().getAttribute("user");
         req.setAttribute("consultant", user.listAllConsultants());
         req.setAttribute("customer", user.listAllCustomers());
-        getServletConfig().getServletContext().getRequestDispatcher("/assignUsersInDB.jsp").forward(req, resp);
+        getServletConfig().getServletContext().getRequestDispatcher("/assignUsers.jsp").forward(req, resp);
         logger.info("Redirect user object to assignUsersInDB.jsp");
     }
 

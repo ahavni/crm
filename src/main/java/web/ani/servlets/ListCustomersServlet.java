@@ -17,7 +17,7 @@ public class ListCustomersServlet extends HttpServlet {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
         Consultant user = (Consultant)req.getSession().getAttribute("user");
         req.setAttribute("usersList", user.listAllCustomers());
-        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listUsers.jsp").forward(req, resp);
         logger.info("Redirect user object to listUsers.jsp");
     }
 }

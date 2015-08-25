@@ -1,3 +1,4 @@
+// registration form validations
 function validateNames(names) {
  var letters = /^[a-zA-Z]+$/;
      if(names.value == ""){
@@ -12,7 +13,6 @@ function validateNames(names) {
      }
      else{
          names.style.background = 'White';
-
          console.log("Name " + names.value + " validated");
          return true;
      }
@@ -75,7 +75,6 @@ function validateAge(age){
      }
 }
 
-
 function validatePassword(password) {
     var illegalChars = /[\W_]/; // allow only letters and numbers
 
@@ -84,7 +83,7 @@ function validatePassword(password) {
         alert('Password is empty');
         return false;
 
-    } else if ((password.value.length < 7) || (password.value.length > 15)) {
+    } else if ((password.value.length < 1) || (password.value.length > 15)) {
         password.style.background = 'Yellow';
         alert('The password is the wrong length.');
         return false;
@@ -101,10 +100,9 @@ function validatePassword(password) {
 
     } else {
         password.style.background = 'White';
+        console.log("Password validated");
+        return true;
     }
-
-    console.log("Password validated");
-    return true;
 }
 
 function validateGender(sex){
@@ -122,22 +120,12 @@ function validateGender(sex){
 function validateUserType(type){
     for (var i=0; i < type.length; i++) {
         if (type[i].checked) {
-            console.log("Usertype validated");
+            console.log("User type validated");
             return true;
         }
     }
     alert('Select user-type');
     return false;
-}
-
-function checkValidationAsset(){
-    form = document.registration;
-    console.log("Java script file is loaded");
-    console.log(form.nodeName);
-}
-
-function checkForm(){
-console.log(formValidation());
 }
 
 function formValidation() {
@@ -169,4 +157,103 @@ function formValidation() {
          }
     }
     return false;
+}
+
+// log in validations
+function loginValidateEmail(email) {
+    if(email.value == ""){
+        email.style.background = 'Yellow';
+        alert('Email field is empty');
+        return false;
+    }
+    else{
+        email.style.background = 'White';
+        return true;
+    }
+}
+
+function loginValidatePassword(password) {
+    if (password.value == "") {
+        password.style.background = 'Yellow';
+        alert('Password is empty');
+        return false;
+    }
+    else{
+        password.style.background = 'White';
+        return true;
+    }
+}
+
+function loginValidation() {
+    console.log("Inside loginValidation");
+    var username = document.login.username;
+    var password = document.login.password;
+
+    if(loginValidateEmail(username)){
+        if(loginValidatePassword(password)){
+            return true;
+        }
+    }
+    return false;
+}
+
+// drop down validation
+function checkSelect(select){
+    if(select.selectedIndex == 0){
+         alert('Select option from drop down');
+         return false;
+    }
+    console.log("product selection validated");
+    return true;
+}
+
+function assignUsersValidation(){
+     console.log("Inside assignUsersValidation");
+     var selected_consultant = document.assignUsers.selected_consultant;
+     var selected_customer = document.assignUsers.selected_customer;
+     if(checkSelect(selected_consultant) && checkSelect(selected_customer)){
+        return true;
+     }
+     return false;
+}
+
+function buyProductValidation() {
+     console.log("Inside buyProductValidation");
+     var selected_product = document.buyProducts.selected_product;
+     if(checkSelect(selected_product)){
+        return true;
+     }
+     return false;
+}
+
+// add product validation
+function addProductValidation(){
+    console.log("Inside addProductValidation");
+    var productName = document.addProduct.product_name;
+    if(validateNames(productName)){
+        return true;
+    }
+    return false;
+}
+
+// search Users
+function searchUsersValidation() {
+    console.log("Inside searchUsersValidation");
+     var first_name = document.searchUsers.first_name;
+     var last_name = document.searchUsers.last_name;
+     var age = document.searchUsers.age;
+     var address = document.searchUsers.address;
+     var email = document.searchUsers.email;
+     var sex = document.searchUsers.sex;
+     var user_type = document.searchUsers.user_type;
+
+     if(first_name.value=="" && last_name.value=="" &&
+        age.value=="" && address.value=="" &&
+        email.value=="" && sex.value=="" && user_type.value==""){
+            alert('Please, select at least one search criteria');
+            return false;
+        }
+     else{
+        return true;
+     }
 }

@@ -20,6 +20,6 @@ public class ListCustomersProductsServlet extends HttpServlet {
         // todo: load customers details after(name,address, products etc. after log in authentication
         user.setCustomersProducts(user);
         req.setAttribute("productList", user.getCustomersProducts(user));
-        getServletConfig().getServletContext().getRequestDispatcher("/listProducts.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listProducts.jsp").forward(req, resp);
     }
 }

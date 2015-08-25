@@ -1,9 +1,11 @@
 <%@ page import="java.util.*, web.ani.beans.User" %>
 <HTML>
     <head>
+        <title>Search User</title>
+        <script src="Validations.js" type="text/javascript"></script>
     </head>
     <body>
-        <form method="POST" action="searchUser">
+        <form method="POST" action="searchUser" name="searchUsers" onSubmit="return searchUsersValidation();">
             <div>
                 <label>First Name:</label>
                 <input type="text" name="first_name"/>
@@ -31,13 +33,11 @@
                 <input type="radio" name="sex" value="woman">Woman</input>
                 <input type="radio" name="sex" value="child">Child</input>
             </div>
-
             <div>
                 <input type="checkbox" name="user_type" value="customer">Customer
                 <input type="checkbox" name="user_type" value="consultant">Consultant
             </div>
-
-          <input type="submit" value="Submit">
+          <input type="submit" value="Search">
         </form>
     </body>
 </HTML>

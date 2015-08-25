@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ListConsultantsCustomersServlet extends HttpServlet {
     final static Logger logger = Logger.getLogger(ListConsultantsCustomersServlet.class);
@@ -20,6 +21,6 @@ public class ListConsultantsCustomersServlet extends HttpServlet {
         // todo: load consultants details after(name,address, customers etc. after log in authentication
         user.setCustomersList(user);
         req.setAttribute("usersList", user.getCustomersList(user));
-        getServletConfig().getServletContext().getRequestDispatcher("/listUsers.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listUsers.jsp").forward(req, resp);
     }
 }

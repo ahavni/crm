@@ -46,7 +46,7 @@ public class SearchUserServlet extends HttpServlet {
             whereClause.append(" user_type in('" + seed + "')");
         }
 
-        logger.info("WHERE cause before hasAND check is: " + whereClause);
+        logger.info("WHERE cause before has AND check is: " + whereClause);
         boolean hasAND = whereClause.substring(whereClause.length()-3).equals("AND");
         ArrayList<User> userList;
         if(hasAND){

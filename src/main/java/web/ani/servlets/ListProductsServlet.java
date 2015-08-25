@@ -18,6 +18,6 @@ public class ListProductsServlet extends HttpServlet {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
         User user = (User)req.getSession().getAttribute("user");
         req.setAttribute("productList", user.listAllProducts());
-        getServletConfig().getServletContext().getRequestDispatcher("/listProducts.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listProducts.jsp").forward(req, resp);
     }
 }
