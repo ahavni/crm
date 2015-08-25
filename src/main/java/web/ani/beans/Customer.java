@@ -15,11 +15,11 @@ public class Customer extends User{
         super(fistNameP, lastNameP, ageP, addressP, emailP, sexP, "customer", passwordP);
     }
 
-    public void setCustomersProducts(Customer user){
+    public void setCustomersProductsList(Customer user){
         productsList = DBUtils.getCustomersProductsFromDB(DBUtils.getUserIDFromDB(user.getEmail()));
     }
 
-    public ArrayList<String> getCustomersProducts(Customer user){
+    public ArrayList<String> getCustomersProductsList(Customer user){
         return productsList;
     }
 

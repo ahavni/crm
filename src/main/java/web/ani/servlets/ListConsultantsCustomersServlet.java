@@ -18,7 +18,6 @@ public class ListConsultantsCustomersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doGet() method ");
         Consultant user = (Consultant)req.getSession().getAttribute("user");
-        // todo: load consultants details after(name,address, customers etc. after log in authentication
         user.setCustomersList(user);
         req.setAttribute("usersList", user.getCustomersList(user));
         req.getRequestDispatcher("/listUsers.jsp").forward(req, resp);

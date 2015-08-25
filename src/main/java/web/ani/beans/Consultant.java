@@ -49,5 +49,7 @@ public class Consultant extends User {
         DBUtils.assignUsersInDB(DBUtils.getUserIDFromDB(consultantEmail), DBUtils.getUserIDFromDB(customerEmail));
     }
 
-
+    public static ArrayList<User> searchUsers(String criteria) {
+        return DBUtils.searchUsersInDB(criteria);
+    }
 }

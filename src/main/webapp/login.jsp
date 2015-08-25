@@ -14,7 +14,7 @@
             <input type="password" name="password"/>
         </div>
         <div>
-            <a href="registerUser.html">New registration</a><br>
+            <a href="registerUser.jsp">New registration</a><br>
         </div>
         <div>
             <a href="createDB">DB initialization</a><br>
@@ -25,7 +25,7 @@
         if(loginResult != null && loginResult.equals("false")){
         %>
         <div>
-            <label color> Username and/or password are incorrect</label>
+            <label> Username and/or password are incorrect</label>
         </div>
         <%
         }

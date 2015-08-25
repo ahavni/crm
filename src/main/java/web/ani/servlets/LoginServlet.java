@@ -17,10 +17,10 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
+
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         logger.info(" username = " + username + " and password = " + password);
-
         User user = null;
         user = DBUtils.getUserByEmailFromDB(username);
         String encryptPass = MD5.crypt(password);

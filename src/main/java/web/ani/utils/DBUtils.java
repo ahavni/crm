@@ -510,7 +510,7 @@ public class DBUtils {
         }
     }
 
-    public static ArrayList<User> searchUsersInDB(String whereCause) {
+    public static ArrayList<User> searchUsersInDB(String whereClause) {
         logger.info("Entering DBUtils searchUsersInDB() method ");
 
         ArrayList<User> usersList = new ArrayList<User>();
@@ -521,7 +521,7 @@ public class DBUtils {
             conn = DBUtils.createDBConnection();
             stmt = conn.createStatement();
             logger.info("Preparing SQL statement...");
-            String sql = "SELECT * FROM USERS where " + whereCause;
+            String sql = "SELECT * FROM USERS where " + whereClause;
             ResultSet rs = stmt.executeQuery(sql);
 
             logger.info("Checking results...");

@@ -18,23 +18,44 @@ public class RegisterUserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         logger.info("Entering " + this.getClass().toString() + " servlet, doPost() method ");
 
-        String hashPass = MD5.crypt(req.getParameter("password"));
-        User user = new User(req.getParameter("first_name"),
-                                req.getParameter("last_name"),
-                                Integer.parseInt(req.getParameter("age")),
-                                req.getParameter("address"),
-                                req.getParameter("email"),
-                                req.getParameter("sex"),
-                                req.getParameter("user_type"),
-                                hashPass
-                                );
+        String email = req.getParameter("email");
+        logger.info("New registration with email: " + email);
+        User user = null;
+        user = DBUtils.getUserByEmailFromDB(email);
+        boolean existance = false;
 
-        DBUtils.addUserInDB(user);
-        logger.info("Create user's session");
-        req.getSession().setAttribute("user", user);
+        if (user != null) {
+            logger.info("User exists: " + user);
+            existance = true;
+        }
 
-        resp.sendRedirect("home.jsp");
-        logger.info("Redirect user object to home.jsp");
+        if (!existance) {
+            logger.info("Register new user");
+            String hashPass = MD5.crypt(req.getParameter("password"));
+            user = new User(req.getParameter("first_name"),
+                    req.getParameter("last_name"),
+                    Integer.parseInt(req.getParameter("age")),
+                    req.getParameter("address"),
+                    req.getParameter("email"),
+                    req.getParameter("sex"),
+                    req.getParameter("user_type"),
+                    hashPass
+            );
+
+            DBUtils.addUserInDB(user);
+            logger.info("Create user's session");
+            req.getSession().setAttribute("user", user);
+
+            resp.sendRedirect("home.jsp");
+            logger.info("Redirect user object to home.jsp");
+
+        } else {
+            logger.info("Redirect to registerUser.jsp");
+            req.setAttribute("reg_result", "false");
+            req.getRequestDispatcher("registerUser.jsp").forward(req, resp);
+        }
+
+
     }
 }
 

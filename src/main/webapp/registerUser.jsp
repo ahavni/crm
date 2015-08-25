@@ -40,6 +40,16 @@
     <div>
     </div>
     <input type="submit">
+    <%
+    String regResult = (String) request.getAttribute("reg_result");
+    if(regResult != null && regResult.equals("false")){
+    %>
+    <div>
+        <label>Email already used</label>
+    </div>
+    <%
+    }
+    %>
 </form>
 </body>
 </html>

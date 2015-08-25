@@ -1,6 +1,7 @@
 package web.ani.servlets;
 
 import org.apache.log4j.Logger;
+import web.ani.beans.Consultant;
 import web.ani.beans.User;
 import web.ani.utils.DBUtils;
 
@@ -49,10 +50,11 @@ public class SearchUserServlet extends HttpServlet {
         logger.info("WHERE cause before has AND check is: " + whereClause);
         boolean hasAND = whereClause.substring(whereClause.length()-3).equals("AND");
         ArrayList<User> userList;
+        Consultant user = (Consultant)req.getSession().getAttribute("user");
         if(hasAND){
-            userList = DBUtils.searchUsersInDB(whereClause.substring(0, whereClause.length()-3).toString());
+            userList = user.searchUsers(whereClause.substring(0, whereClause.length()-3).toString());
         }else{
-            userList = DBUtils.searchUsersInDB(whereClause.toString());
+            userList = user.searchUsers(whereClause.toString());
         }
 
         req.setAttribute("usersList", userList);
